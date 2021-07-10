@@ -32,7 +32,10 @@ public class Pbullet : MonoBehaviour
         {
             if (other.tag != "HangS")
             {
-                sdstrct2();
+                if (other.tag != "Slope")
+                {
+                    sdstrct2();
+                }
             }
         }
     }

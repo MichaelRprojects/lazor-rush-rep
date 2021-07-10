@@ -20,6 +20,7 @@ public class PMovement : MonoBehaviour
     public static int Hdamage = 525;
     public static bool thvol = false;
     bool ebdmgd = false;
+    bool eexdmgd = false;
     public bool healing = false;
     public float HregTimer = 0.0f;
     public const float Htimetreg = 2.0f;
@@ -49,6 +50,9 @@ public class PMovement : MonoBehaviour
     Vector3 slpvec2;
     bool isslope = false;
     RaycastHit gout;
+
+    Vector3 sldir = Vector3.zero;
+    bool isslope2 = false;
 
     float airslow = 1f;
     bool dasha = false;
@@ -108,6 +112,10 @@ public class PMovement : MonoBehaviour
         {
             ebdmgd = true;
         }
+        if (other.tag == "eexploden")
+        {
+            eexdmgd = true;
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -122,6 +130,7 @@ public class PMovement : MonoBehaviour
         }
         if (other.tag != "Slope")
         {
+            //isslope2 = false;
             DelayHelper.DelayAction(this, isldf, .25f);
             //airslow =1
             //isslope = false;
@@ -138,6 +147,10 @@ public class PMovement : MonoBehaviour
         if (other.tag == "HangS")
         {
             isHang = false;
+        }
+        if (other.tag == "Slope")
+        {
+            isslope2 = false;
         }
     }
     // Update is called once per frame
@@ -182,11 +195,45 @@ public class PMovement : MonoBehaviour
             {
                 if (Level01Controller.pgpaused == false)
                 {
-                    Vector3 move = transform.right * x + transform.forward * z;
+                    if (isslope2 == false && Melee.isbswing == false)
+                    {
+                        Vector3 move = transform.right * x + transform.forward * z;
+                        controller.Move(move * (speed / airslow) * Time.deltaTime);
+                    }
 
-                    controller.Move(move * (speed / airslow) * Time.deltaTime);
+                    if (Melee.isbswing == true)
+                    {
+                        if (Melee.targets != null)
+                        {
+                            Vector3 move3 = transform.right * x + transform.forward * z;
+                            //Vector3 targetm = traMelee.targets;
+                            //GameObject targetm = Melee.targets;
+                            //+=
+                            move3 += Melee.targets.transform.position - this.transform.position;
+                            //.5/airslow *4f 3f
+                            controller.Move(move3 * ((speed * 1.5f) / (airslow * 3f)) * Time.deltaTime);
+                        }
+                        if (Melee.targets == null)
+                        {
+                            Vector3 move4 = transform.right * x + transform.forward * z;
+                            controller.Move(move4 * (speed / airslow) * Time.deltaTime);
+                        }
+
+                    }
+
+                    if (isslope2 == true)
+                    {
+                        Vector3 move2 = transform.right * x + transform.forward * z;
+                        move2 += slpvec2;
+                        controller.Move(move2 * ((speed * 1.5f) / airslow) * Time.deltaTime);
+                    }
+
+                    //Vector3 move = transform.right * x + transform.forward * z;
+                    //controller.Move(move * (speed / airslow) * Time.deltaTime);
                 }
             }
+
+            //Debug.Log(isslope2);
 
             if (isGrounded)
             {
@@ -588,6 +635,10 @@ public class PMovement : MonoBehaviour
             {
                 Bdmged();
             }
+            if (eexdmgd == true)
+            {
+                exdmged();
+            }
 
             if (isslope == true)
             {
@@ -596,10 +647,23 @@ public class PMovement : MonoBehaviour
                     //velocity.y = Mathf.Lerp(velocity.y, -50, .25f);
                     //slpvec = new Vector3(slopeang, 0, 0);
                     //100f in editor speed similar to walk or run speed in build
-                    controller.Move(slpvec2 * 100f * Time.deltaTime);
+                    isslope2 = true;
+
+                    //controller.Move(slpvec2 * 100f * Time.deltaTime);
+
+                    //controller.Move(sldir * Time.deltaTime);
+                    //velocity.y = -2;
+                    //velocity = (slpvec2 * 30f * Time.deltaTime);
+                    //slpvec2 v3 z
+                    //sldir = Vector3.Lerp(slpvec2, slpvec2, 3f * Time.deltaTime);
                     isslope = false;
                 }
             }
+            //if (isslope == false)
+            //{
+                //isslope2 = false;
+            //}
+
         }
 
     }
@@ -675,6 +739,26 @@ public class PMovement : MonoBehaviour
         }
         ebdmgd = false;
     }
+    public void exdmged()
+    {
+        if (Health > 0)
+        {
+            //pleshield
+                if (Melee.shtrest == false)
+                {
+                    Level01Controller.Hvis = true;
+                    AudioHelper.PlayClip2D(HrtSpm);
+                    Health = Health - 500;
+                }
+                if (Melee.shtrest == true && Melee.pleshield <= 0)
+                {
+                    Level01Controller.Hvis = true;
+                    AudioHelper.PlayClip2D(HrtSpm);
+                    Health = Health - 500;
+                }
+        }
+        eexdmgd = false;
+    }
     public void heal()
     {
         //if (Health <= MaxHealth)
@@ -732,6 +816,7 @@ public class PMovement : MonoBehaviour
     void isldf()
     {
         isslope = false;
+        //isslope2 = false;
     }
 
     }

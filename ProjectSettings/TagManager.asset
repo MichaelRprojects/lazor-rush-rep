@@ -13,6 +13,11 @@ TagManager:
   - pshield
   - reflectb
   - Slope
+  - pexploden
+  - eexploden
+  - shootablee
+  - sword
+  - thrnswrd
   layers:
   - Default
   - TransparentFX

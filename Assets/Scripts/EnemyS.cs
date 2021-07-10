@@ -10,8 +10,9 @@ public class EnemyS : MonoBehaviour
     [SerializeField] GameObject egun;
     Transform Pl;
     bool grndc;
-    int ehealth = 100;
-    float pdetr = 20;
+    // priv nxt 2
+    public int ehealth = 100;
+    public float pdetr = 20;
     bool pdet;
     bool pcls;
     bool phit;
@@ -26,10 +27,17 @@ public class EnemyS : MonoBehaviour
     bool blockc;
     public static bool blockb = false;
 
+    bool stabbed = true;
+
+    //public static float attcamnt = 0;
+    float attcamnt = 0;
+    public int mxattcamnt = 75;
+
     [SerializeField] AudioClip LlS = null;
     [SerializeField] AudioClip ThdS = null;
     [SerializeField] AudioClip ExploS = null;
     [SerializeField] AudioClip AlrS = null;
+    [SerializeField] AudioClip sngS = null;
     bool plthd = true;
     bool plalr2 = true;
     [SerializeField] GameObject opartc;
@@ -38,6 +46,7 @@ public class EnemyS : MonoBehaviour
     {
         Pl = GameObject.Find("Player").transform;
         zt = 0;
+        attcamnt = 0;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -51,6 +60,48 @@ public class EnemyS : MonoBehaviour
                 //ehealth = ehealth - 50;
             //}
             //EnemyS enemyS = objectHit.transform.gameObject.GetComponent<EnemyS>();
+        }
+        if (other.tag == "pexploden")
+        {
+            TDamage(100);
+        }
+        //if (other.tag == "thrnswrd")
+        //{
+            //TDamage(100);
+        //}
+        //if (other.tag == "sword")
+        //{
+        //if (Melee.isbswing == true)
+        //{
+        //TDamage(100);
+        //}
+        //}
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.collider.tag == "thrnswrd")
+        {
+            //100
+            TDamage(150);
+            AudioHelper.PlayClip2D(sngS);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "sword")
+        {
+            if (Melee.isbswing == true)
+            {
+                if (stabbed == true)
+                {
+                    //100 200
+                    TDamage(200);
+                    AudioHelper.PlayClip2D(sngS);
+                    stabbed = false;
+                }
+            }
         }
     }
 
@@ -80,6 +131,7 @@ public class EnemyS : MonoBehaviour
                 plalr2 = true;
                 zt = 0;
                 attacka = true;
+                attcamnt = 0;
             }
 
             if (movea == false)
@@ -105,6 +157,11 @@ public class EnemyS : MonoBehaviour
             if (blockc == false)
             {
                 blockb = false;
+            }
+
+            if (Melee.isbswing == false)
+            {
+                stabbed = true;
             }
 
 
@@ -178,8 +235,17 @@ public class EnemyS : MonoBehaviour
                 {
                     if (hitm == false)
                     {
-                        attck();
-                        DelayHelper.DelayAction(this, attackat, .5f);
+                        //attck();
+                        //DelayHelper.DelayAction(this, attackat, .5f);
+                        if (attcamnt < mxattcamnt)
+                        {
+                            attcamnt = Mathf.Clamp(attcamnt + (120 * Time.deltaTime), 0.0f, mxattcamnt);
+                        }
+                        if (attcamnt == mxattcamnt)
+                        {
+                            attck();
+                            attcamnt = 0;
+                        }
                     }
                 }
 
@@ -270,7 +336,8 @@ public class EnemyS : MonoBehaviour
 
             AudioHelper.PlayClip2D(LlS);
 
-            attacka = false;
+            //attcamnt = 0;
+            //attacka = false;
     }
     void eMove()
     {

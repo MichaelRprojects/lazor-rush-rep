@@ -6,6 +6,7 @@ public class Hand : MonoBehaviour
 {
     Transform Plm;
     [SerializeField] LayerMask Playerl;
+    public float pdeth = 20;
     bool aimt;
     //float zt2 = 0;
     // Start is called before the first frame update
@@ -29,7 +30,7 @@ public class Hand : MonoBehaviour
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.z, 0, 0);
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.y, 0, 0);
 
-        aimt = Physics.CheckSphere(transform.position, 20, Playerl);
+        aimt = Physics.CheckSphere(transform.position, pdeth, Playerl);
         if (aimt == true)
         {
             this.transform.LookAt(Plm);

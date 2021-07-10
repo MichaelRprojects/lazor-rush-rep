@@ -10,10 +10,12 @@ public class Level01Controller : MonoBehaviour
     [SerializeField] Slider HealthBar;
     [SerializeField] Slider StaminaBar;
     [SerializeField] Slider EshldBar;
+    [SerializeField] Slider ReamntBar;
     [SerializeField] Text Healthnum;
     [SerializeField] Text Staminanum;
     [SerializeField] Text Eshldnum;
     [SerializeField] Text Clipnum;
+    [SerializeField] Text Testtx;
     [SerializeField] GameObject Egprompt;
     [SerializeField] GameObject Elgprompt;
     [SerializeField] GameObject NEStam;
@@ -24,6 +26,7 @@ public class Level01Controller : MonoBehaviour
     [SerializeField] GameObject gpMenu;
     [SerializeField] GameObject gpbgrnd;
     [SerializeField] AudioClip HrtS = null;
+    [SerializeField] AudioClip lsngS = null;
     [SerializeField] AudioClip DthS = null;
     [SerializeField] AudioClip PsmnS = null;
     public static int currentScore;
@@ -62,12 +65,15 @@ public class Level01Controller : MonoBehaviour
         HealthBar.value = PMovement.Health;
         StaminaBar.value = PMovement.Stamina;
         EshldBar.value = Melee.Deshield;
+        ReamntBar.value = Melee.reamnt;
         Healthnum.text =
             PMovement.DHealth.ToString();
         Staminanum.text =
             PMovement.DStamina.ToString();
         Eshldnum.text =
             Melee.Deshield.ToString();
+        //Testtx.text =
+            //EnemyS.attcamnt.ToString();
         Clipnum.text =
            Shooting.clip.ToString() + "/" + Shooting.mclip.ToString();
 
@@ -152,6 +158,10 @@ public class Level01Controller : MonoBehaviour
     public void haudon()
     {
         AudioHelper.PlayClip2D(HrtS);
+        if (PMovement.thvol == true)
+        {
+            AudioHelper.PlayClip2D(lsngS);
+        }
         hauds = true;
     }
     public void haudsf()

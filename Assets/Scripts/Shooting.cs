@@ -31,11 +31,14 @@ public class Shooting : MonoBehaviour
     bool shoota = true;
     bool reloada = false;
     bool clcka = true;
+    //bool setcl0a = false;
+    //bool setcl6a = false;
 
     [SerializeField] GameObject gno;
     [SerializeField] Transform hpsn;
     [SerializeField] Transform adspn;
     bool reloading = false;
+    public static bool preloading = false;
 
 
     RaycastHit objectHit;
@@ -48,6 +51,7 @@ public class Shooting : MonoBehaviour
         rlight.intensity = lintsi;
         reloada = false;
         reloading = false;
+        preloading = false;
 
         Pshootdis = shootDistance;
     }
@@ -66,12 +70,33 @@ public class Shooting : MonoBehaviour
             {
                 reloada = true;
             }
+            if (Melee.shootatr == true && reloading == false)
+            {
+                if (clip > 0)
+                {
+                    shoota = true;
+                }
+            }
+            //if (Melee.gunua == true)
+            //{
+                //setcl0a = true;
+            //}
+            //if(setcl0a == true)
+            //{
+                //clip = 0;
+                //setcl0a = false;
+            //}
+            //if (Melee.gunua == false)
+            //{
+                //clip = 6;
+            //}
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 if (Level01Controller.pgpaused == false)
                 {
                     if (clip == 0 && clcka == true)
                     {
+                        //Melee.gunua == false
                         if (Melee.shtrest == false)
                         {
                             AudioHelper.PlayClip2D(GnclS);
@@ -101,7 +126,7 @@ public class Shooting : MonoBehaviour
             {
                 if (Level01Controller.pgpaused == false)
                 {
-                    if (reloading == false && PMovement.pissprnt == false && Melee.shtrest == false)
+                    if (reloading == false && PMovement.pissprnt == false && Melee.shtrest == false && Melee.gunua == false)
                     {
                         gno.transform.position = Vector3.Lerp(gno.transform.position, adspn.position, Time.deltaTime * 20f);
                         if (cameracontroller.fieldOfView > 53)
@@ -109,7 +134,7 @@ public class Shooting : MonoBehaviour
                             cameracontroller.fieldOfView -= (30 * Time.deltaTime);
                         }
                     }
-                    if (reloading == true || PMovement.pissprnt == true || Melee.shtrest == true)
+                    if (reloading == true || PMovement.pissprnt == true || Melee.shtrest == true || Melee.gunua == true)
                     {
                         if (cameracontroller.fieldOfView < 60)
                         {
@@ -128,6 +153,7 @@ public class Shooting : MonoBehaviour
                 gno.transform.position = Vector3.Lerp(gno.transform.position, hpsn.position, Time.deltaTime * 20f);
             }
 
+            preloading = reloading;
 
             if (reloada == true)
             {
@@ -137,11 +163,14 @@ public class Shooting : MonoBehaviour
                     {
                         if (clip < mclip)
                         {
-                            shoota = false;
-                            reloada = false;
-                            clcka = false;
-                            reloading = true;
-                            DelayHelper.DelayAction(this, shootat, 1f);
+                            if (Melee.gunua == false)
+                            {
+                                shoota = false;
+                                reloada = false;
+                                clcka = false;
+                                reloading = true;
+                                DelayHelper.DelayAction(this, shootat, 1f);
+                            }
                         }
                     }
                 }
@@ -193,6 +222,14 @@ public class Shooting : MonoBehaviour
                 if (enemyS != null)
                 {
                     enemyS.TDamage(weaponDamage);
+                }
+            }
+            if (objectHit.transform.tag == "shootablee")
+            {
+                Mine mine = objectHit.transform.gameObject.GetComponent<Mine>();
+                if (mine != null)
+                {
+                    mine.explodemn();
                 }
             }
         }

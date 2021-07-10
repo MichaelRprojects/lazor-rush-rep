@@ -490,7 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f1d7fb61ae63794dacaa60ed11a9bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSong: {fileID: 8300000, guid: 19a3881bfec438e4ebb69d5cb95e2659, type: 3}
+  startSong: {fileID: 8300000, guid: c5e332dc623575a4d82592feb1da679b, type: 3}
   highScoreTextView: {fileID: 1515773344}
 --- !u!1 &158586781
 GameObject:

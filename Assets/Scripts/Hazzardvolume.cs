@@ -19,7 +19,8 @@ public class Hazzardvolume : MonoBehaviour
         if (enemyS != null)
         {
             //EnemyS.ehealth = 0;
-            enemyS.TDamage(Edam);
+            //Edam
+            enemyS.TDamage(enemyS.ehealth);
         }
     }
     private void OnTriggerExit(Collider other)
