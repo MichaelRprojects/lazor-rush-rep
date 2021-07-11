@@ -89,6 +89,8 @@ public class PMovement : MonoBehaviour
         Stamina = 4000;
         pissprnt = false;
 
+        gravity = -9.8f;
+
         airslow = 1f;
         jumpnum = 2;
     }
@@ -153,6 +155,14 @@ public class PMovement : MonoBehaviour
             isslope2 = false;
         }
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.collider.tag != "Slope")
+        {
+            //isslope2 = false;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -199,6 +209,7 @@ public class PMovement : MonoBehaviour
                     {
                         Vector3 move = transform.right * x + transform.forward * z;
                         controller.Move(move * (speed / airslow) * Time.deltaTime);
+                        //gravity = -9.8f;
                     }
 
                     if (Melee.isbswing == true)
@@ -225,7 +236,10 @@ public class PMovement : MonoBehaviour
                     {
                         Vector3 move2 = transform.right * x + transform.forward * z;
                         move2 += slpvec2;
+                        //(airslow *4f)
                         controller.Move(move2 * ((speed * 1.5f) / airslow) * Time.deltaTime);
+                        //-1.8
+                        //gravity = -1.2f;
                     }
 
                     //Vector3 move = transform.right * x + transform.forward * z;
@@ -234,6 +248,10 @@ public class PMovement : MonoBehaviour
             }
 
             //Debug.Log(isslope2);
+            //if (Input.GetKeyDown(KeyCode.P))
+            //{
+                //isslope2 = false;
+            //}
 
             if (isGrounded)
             {
@@ -244,6 +262,7 @@ public class PMovement : MonoBehaviour
             if (!isGrounded)
             {
                 airslow = 1.4f;
+                isslope2 = false;
             }
             if (isladder == true)
             {
@@ -437,10 +456,13 @@ public class PMovement : MonoBehaviour
                     {
                         if (Input.GetAxis("Vertical") > 0)
                         {
-                            Stamloss = true;
-                            pissprnt = true;
-                            SetSpeed();
-                            DelayHelper.DelayAction(this, BSprintfalse, .25f);
+                            if (isslope2 == false)
+                            {
+                                Stamloss = true;
+                                pissprnt = true;
+                                SetSpeed();
+                                DelayHelper.DelayAction(this, BSprintfalse, .25f);
+                            }
                         }
                         if (Input.GetAxis("Vertical") < 0)
                         {
@@ -472,12 +494,15 @@ public class PMovement : MonoBehaviour
                     {
                         if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
                         {
-                            AudioHelper.PlayClip2D(dgeS);
-                            DStamloss = true;
-                            Dstam();
-                            dasha = true;
-                            DelayHelper.DelayAction(this, dashaf, .1f);
-                            //controller.Move(transform.forward * 50f * Time.deltaTime);
+                            //if (isslope2 == false)
+                            //{
+                                AudioHelper.PlayClip2D(dgeS);
+                                DStamloss = true;
+                                Dstam();
+                                dasha = true;
+                                DelayHelper.DelayAction(this, dashaf, .1f);
+                                //controller.Move(transform.forward * 50f * Time.deltaTime);
+                            //}
                         }
                     }
                 }
