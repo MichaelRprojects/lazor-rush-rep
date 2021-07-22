@@ -22,6 +22,15 @@ public class Hazzardvolume : MonoBehaviour
             //Edam
             enemyS.TDamage(enemyS.ehealth);
         }
+        EnemySb enemySb
+   = other.gameObject.GetComponent<EnemySb>();
+        if (enemySb != null)
+        {
+            //EnemyS.ehealth = 0;
+            //Edam
+            enemySb.ishvlt();
+            //enemySb.TDamage(enemySb.ehealth);
+        }
     }
     private void OnTriggerExit(Collider other)
     {

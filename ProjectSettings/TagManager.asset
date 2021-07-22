@@ -18,6 +18,7 @@ TagManager:
   - shootablee
   - sword
   - thrnswrd
+  - ebld
   layers:
   - Default
   - TransparentFX

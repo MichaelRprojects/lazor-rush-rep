@@ -223,6 +223,11 @@ public class Shooting : MonoBehaviour
                 {
                     enemyS.TDamage(weaponDamage);
                 }
+                EnemySb enemySb = objectHit.transform.gameObject.GetComponent<EnemySb>();
+                if (enemySb != null)
+                {
+                    enemySb.TDamage(weaponDamage);
+                }
             }
             if (objectHit.transform.tag == "shootablee")
             {

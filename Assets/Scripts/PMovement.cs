@@ -21,6 +21,7 @@ public class PMovement : MonoBehaviour
     public static bool thvol = false;
     bool ebdmgd = false;
     bool eexdmgd = false;
+    bool eblddmgd = false;
     public bool healing = false;
     public float HregTimer = 0.0f;
     public const float Htimetreg = 2.0f;
@@ -117,6 +118,10 @@ public class PMovement : MonoBehaviour
         if (other.tag == "eexploden")
         {
             eexdmgd = true;
+        }
+        if (other.tag == "ebld")
+        {
+            eblddmgd = true;
         }
     }
 
@@ -664,6 +669,10 @@ public class PMovement : MonoBehaviour
             {
                 exdmged();
             }
+            if (eblddmgd == true)
+            {
+                ebldmged();
+            }
 
             if (isslope == true)
             {
@@ -783,6 +792,33 @@ public class PMovement : MonoBehaviour
                 }
         }
         eexdmgd = false;
+    }
+    public void ebldmged()
+    {
+        if (Health > 0)
+        {
+            //pleshield
+            if (Melee.shtrest == false)
+            {
+                Level01Controller.Hvis = true;
+                AudioHelper.PlayClip2D(HrtSpm);
+                //500
+                Health = Health - 500;
+            }
+            if (Melee.shtrest == true && Melee.pleshield <= 0)
+            {
+                Level01Controller.Hvis = true;
+                AudioHelper.PlayClip2D(HrtSpm);
+                //500
+                Health = Health - 500;
+            }
+            if (Melee.pispry == true)
+            {
+                EnemySb.parried = true;
+                //Debug.Log("parry");
+            }
+        }
+        eblddmgd = false;
     }
     public void heal()
     {

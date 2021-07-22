@@ -45,6 +45,8 @@ public class Melee : MonoBehaviour
     Quaternion swrdstrro;
     Vector3 swrdstrrov;
 
+    public static bool pispry = false; 
+
     [SerializeField] AudioClip glnch = null;
     [SerializeField] AudioClip scb = null;
     [SerializeField] AudioClip tswp = null;
@@ -123,6 +125,7 @@ public class Melee : MonoBehaviour
                     shldv.SetActive(false);
                     pshld.SetActive(false);
                     pshldv.SetActive(false);
+                    pispry = false;
                     shtrest = false;
                 }
             }
@@ -142,6 +145,7 @@ public class Melee : MonoBehaviour
                 shldv.SetActive(false);
                 pshld.SetActive(false);
                 pshldv.SetActive(false);
+                pispry = false;
             }
             if (abeshieldloss == true)
             {
@@ -157,6 +161,7 @@ public class Melee : MonoBehaviour
                         shldlsmlt = 5;
                         pshld.SetActive(true);
                         pshldv.SetActive(true);
+                        pispry = true;
                     }
                 }
             }
@@ -169,6 +174,7 @@ public class Melee : MonoBehaviour
                         shldlsmlt = .25f;
                         pshld.SetActive(false);
                         pshldv.SetActive(false);
+                        pispry = false;
                     }
                 }
             }
