@@ -15,7 +15,8 @@ public class pexpled : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scaler = new Vector3(Melee.expldamnt * 1.2f + .5f, Melee.expldamnt * 1.2f + .5f, Melee.expldamnt * 1.2f + .5f);
+        // expldmnt *1.2f
+        scaler = new Vector3(Melee.expldamnt * 1.8f + .5f, Melee.expldamnt * 1.8f + .5f, Melee.expldamnt * 1.8f + .5f);
         this.transform.localScale = Vector3.Lerp(this.transform.localScale, scaler, 20f * Time.deltaTime);
     }
 }

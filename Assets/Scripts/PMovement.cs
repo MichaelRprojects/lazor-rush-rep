@@ -79,6 +79,8 @@ public class PMovement : MonoBehaviour
     [SerializeField] AudioClip LddwnS = null;
     [SerializeField] AudioClip djumpS = null;
     [SerializeField] AudioClip dgeS = null;
+    [SerializeField] AudioClip sngeS = null;
+    [SerializeField] AudioClip prryS = null;
 
     Vector3 velocity;
     bool isGrounded;
@@ -801,6 +803,7 @@ public class PMovement : MonoBehaviour
             if (Melee.shtrest == false)
             {
                 Level01Controller.Hvis = true;
+                AudioHelper.PlayClip2D(sngeS);
                 AudioHelper.PlayClip2D(HrtSpm);
                 //500
                 Health = Health - 500;
@@ -808,6 +811,7 @@ public class PMovement : MonoBehaviour
             if (Melee.shtrest == true && Melee.pleshield <= 0)
             {
                 Level01Controller.Hvis = true;
+                AudioHelper.PlayClip2D(sngeS);
                 AudioHelper.PlayClip2D(HrtSpm);
                 //500
                 Health = Health - 500;
@@ -815,6 +819,7 @@ public class PMovement : MonoBehaviour
             if (Melee.pispry == true)
             {
                 EnemySb.parried = true;
+                AudioHelper.PlayClip2D(prryS);
                 //Debug.Log("parry");
             }
         }

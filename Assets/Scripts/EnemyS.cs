@@ -15,6 +15,7 @@ public class EnemyS : MonoBehaviour
     public float pdetr = 20;
     bool pdet;
     bool pcls;
+    bool pfar;
     bool phit;
     bool hitm = false;
     bool movea = true;
@@ -22,6 +23,10 @@ public class EnemyS : MonoBehaviour
     float zt = 0;
     float offsetyb = 0;
     float offsetxb = 0;
+    GameObject[] enemiestres;
+    GameObject blckrfnd;
+    bool isstp = false;
+    int stpang = 90;
 
     [SerializeField] LayerMask grounded;
     bool blockc;
@@ -32,6 +37,15 @@ public class EnemyS : MonoBehaviour
     //public static float attcamnt = 0;
     float attcamnt = 0;
     public int mxattcamnt = 75;
+
+    public float Mvspdb = 64f;
+    public bool issnpr = false;
+    //6.5
+    public float snppdrmns = 10f;
+
+    public int bprrydmg = 50;
+
+    public float bltspd = 32f;
 
     [SerializeField] AudioClip LlS = null;
     [SerializeField] AudioClip ThdS = null;
@@ -46,6 +60,9 @@ public class EnemyS : MonoBehaviour
     {
         Pl = GameObject.Find("Player").transform;
         zt = 0;
+        enemiestres = GameObject.FindGameObjectsWithTag("estp");
+        isstp = false;
+        blckrfnd = null;
         attcamnt = 0;
     }
 
@@ -55,8 +72,8 @@ public class EnemyS : MonoBehaviour
         {
             //if (Bullet.isreflct == true)
             //{
-            //25
-                TDamage(50);
+            //25 50
+                TDamage(bprrydmg);
                 //ehealth = ehealth - 50;
             //}
             //EnemyS enemyS = objectHit.transform.gameObject.GetComponent<EnemyS>();
@@ -181,15 +198,20 @@ public class EnemyS : MonoBehaviour
 
             if (hitm == true)
             {
+                blckrfnd = null;
+                isstp = false;
+
                 Rigidbody rben3 = this.GetComponent<Rigidbody>();
                 //my nd dtd was fm.f 564 -300
                 //rben3.AddForce(transform.forward * Time.deltaTime * -700f, ForceMode.Force);
                 //700 2800
                 rben3.AddForce(Pl.transform.forward * Time.deltaTime * 2100f, ForceMode.Force);
+                //Debug.Log("hit");
 
                 if (plthd == true)
                 {
                     AudioHelper.PlayClip2D(ThdS);
+                    //Debug.Log("soundddddddddddddddddddddddddddddd");
                     plthd = false;
                 }
                 DelayHelper.DelayAction(this, plthdt, .5f);
@@ -197,6 +219,7 @@ public class EnemyS : MonoBehaviour
                 DelayHelper.DelayAction(this, hitmf, .5f);
             }
 
+            pfar = Physics.CheckSphere(transform.position, (pdetr- snppdrmns), Playerl);
 
             //pcls = Physics.CheckSphere(transform.position, 3, Playerl);
             //total 20 like pdetr
@@ -244,6 +267,12 @@ public class EnemyS : MonoBehaviour
                         if (attcamnt == mxattcamnt)
                         {
                             attck();
+                            if (issnpr == true)
+                            {
+                                DelayHelper.DelayAction(this, attck, .1f);
+                                //DelayHelper.DelayAction(this, attck, .2f);
+                                //attck();
+                            }
                             attcamnt = 0;
                         }
                     }
@@ -257,20 +286,192 @@ public class EnemyS : MonoBehaviour
                     {
                         if (hitm == false)
                         {
-                            eMove();
+                            if (issnpr == false)
+                            {
+                                if (isstp == false)
+                                {
+                                    eMove();
+                                }
+                            }
                         }
                     }
                 }
-                if (pcls == true)
+
+                if (movea == true)
                 {
                     if (hitm == false)
                     {
-                        Rigidbody rben2 = this.GetComponent<Rigidbody>();
-                        rben2.velocity = Vector3.zero;
-                        rben2.angularVelocity = Vector3.zero;
+                        if (issnpr == true)
+                        {
+                            if (pfar == true)
+                            {
+                                if (isstp == false)
+                                {
+                                    eMove();
+                                }
+                            }
+                        }
                     }
-                    //rben2.constraints = RigidbodyConstraints.FreezeRotationY;
-                    //zt = 0;
+                }
+
+                //was for of list lk in thrwbl
+                if (blckrfnd == null)
+                {
+                    for (int i = 0; i < enemiestres.Length; i++)
+                    //for (var est : GameObject in enemiestres)
+                    {
+                        //Debug.Log(i);
+                        if (enemiestres[i] != null)
+                        {
+                            //enemiestres[i].transform.position    GameObject.FindWithTag("estp").transform.position
+                            if (Vector3.Distance(this.transform.position, enemiestres[i].transform.position) <= 3)
+                            {
+                                blckrfnd = enemiestres[i];
+                                //Debug.Log(Vector3.Angle((this.transform.position - enemiestres[i].transform.position), this.transform.forward));
+                                // >90
+                                //Debug.Log("poo");
+                                //if (Vector3.Angle((this.transform.position - enemiestres[i].transform.position), this.transform.forward) > stpang)
+                                //{
+                                //if (issnpr == false)
+                                //{
+                                //nn isstp = true;
+                                //DelayHelper.DelayAction(this, isstpt, .25f);
+                                //nn Debug.Log("stppd");
+                                //if (isstp == true)
+                                //{
+                                //if (hitm == false)
+                                //{
+                                //Rigidbody rbenes = this.GetComponent<Rigidbody>();
+                                //rbenes.velocity = Vector3.zero;
+                                //rbenes.angularVelocity = Vector3.zero;
+                                //}
+                                //}
+                                //}
+                                //if (issnpr == true)
+                                //{
+                                //isstp = false;
+                                //}
+                                //}
+                                //if (Vector3.Angle((this.transform.position - enemiestres[i].transform.position), this.transform.forward) < stpang)
+                                //{
+                                //if (issnpr == false)
+                                //{
+                                //isstp = false;
+                                //}
+                                //if (issnpr == true)
+                                //{
+                                //nn isstp = true;
+                                //DelayHelper.DelayAction(this, isstpt, .25f);
+                                //nn Debug.Log("stppd");
+                                //if (isstp == true)
+                                //{
+                                //if (hitm == false)
+                                //{
+                                //Rigidbody rbenes = this.GetComponent<Rigidbody>();
+                                //rbenes.velocity = Vector3.zero;
+                                //rbenes.angularVelocity = Vector3.zero;
+                                //}
+                                //}
+                                //}
+                                //nn Debug.Log("unstppd");
+                                //}
+                                //}
+                                //if (Vector3.Distance(this.transform.position, enemiestres[i].transform.position) > 3)
+                                //{
+                                //isstp = false;
+                                //}
+                            }
+                            //if (Vector3.Distance(this.transform.position, enemiestres[i].transform.position) > 3)
+                            //{
+                                //isstp = false;
+                                //blckrfnd = null;
+                            //}
+                        }
+                    }
+                }
+                //mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+                if (blckrfnd != null)
+                {
+                    if (Vector3.Angle((this.transform.position - blckrfnd.transform.position), this.transform.forward) > stpang)
+                    {
+                        if (issnpr == false)
+                        {
+                            //isstp = true;
+                            DelayHelper.DelayAction(this, isstpt, .25f);
+                            //Debug.Log("stppd");
+                            if (isstp == true)
+                            {
+                                if (hitm == false)
+                                {
+                                    Rigidbody rbenes = this.GetComponent<Rigidbody>();
+                                    rbenes.velocity = Vector3.zero;
+                                    rbenes.angularVelocity = Vector3.zero;
+                                }
+                            }
+                        }
+                        if (issnpr == true)
+                        {
+                            isstp = false;
+                            blckrfnd = null;
+                        }
+                    }
+                    if (blckrfnd != null)
+                    {
+                        if (Vector3.Angle((this.transform.position - blckrfnd.transform.position), this.transform.forward) < stpang)
+                        {
+                            if (issnpr == false)
+                            {
+                                isstp = false;
+                                blckrfnd = null;
+                            }
+                            if (issnpr == true)
+                            {
+                                //isstp = true;
+                                DelayHelper.DelayAction(this, isstpt, .25f);
+                                //Debug.Log("stppd");
+                                if (isstp == true)
+                                {
+                                    if (hitm == false)
+                                    {
+                                        Rigidbody rbenes = this.GetComponent<Rigidbody>();
+                                        rbenes.velocity = Vector3.zero;
+                                        rbenes.angularVelocity = Vector3.zero;
+                                    }
+                                }
+                            }
+                            //Debug.Log("unstppd");
+                        }
+                    }
+                    //nn }
+                    if (blckrfnd != null)
+                    {
+                        if (Vector3.Distance(this.transform.position, blckrfnd.transform.position) > 3f)
+                        {
+                            blckrfnd = null;
+                            isstp = false;
+                        }
+                    }
+                }
+                if (blckrfnd == null)
+                {
+                    isstp = false;
+
+                }
+
+            //mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+            if (pcls == true)
+                {
+                    if (issnpr == false)
+                    {
+                        if (hitm == false)
+                        {
+                            Rigidbody rben2 = this.GetComponent<Rigidbody>();
+                            rben2.velocity = Vector3.zero;
+                            rben2.angularVelocity = Vector3.zero;
+                        }
+                        //rben2.constraints = RigidbodyConstraints.FreezeRotationY;
+                        //zt = 0;
+                    }
                 }
             }
             if (Input.GetKeyDown(KeyCode.L))
@@ -331,8 +532,8 @@ public class EnemyS : MonoBehaviour
             //rb.transform.eulerAngles = offang.eulerAngles;
             //my nd tdt
             //rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            //32 96
-            rb.AddForce(ehand.transform.forward * 32f, ForceMode.Impulse);
+            //32 96 32
+            rb.AddForce(ehand.transform.forward * bltspd, ForceMode.Impulse);
 
             AudioHelper.PlayClip2D(LlS);
 
@@ -342,8 +543,8 @@ public class EnemyS : MonoBehaviour
     void eMove()
     {
         Rigidbody rben = this.GetComponent<Rigidbody>();
-        //my nd dtd was fm.f 32
-        rben.AddForce(transform.forward * Time.deltaTime * 64f, ForceMode.Force);
+        //my nd dtd was fm.f 32 64f
+        rben.AddForce(transform.forward * Time.deltaTime * Mvspdb, ForceMode.Force);
         //moven = false;
     }
     void moveat()
@@ -364,5 +565,9 @@ public class EnemyS : MonoBehaviour
     void plthdt()
     {
         plthd = true;
+    }
+    void isstpt()
+    {
+        isstp = true;
     }
 }

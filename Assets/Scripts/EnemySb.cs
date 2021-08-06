@@ -243,8 +243,8 @@ public class EnemySb : MonoBehaviour
             //total 20 like pdetr
             Vector3 upoff = new Vector3(0, 10, 0);
             Vector3 dwnoff = new Vector3(0, -10, 0);
-            //3
-            pcls = Physics.CheckCapsule(transform.position + upoff, transform.position + dwnoff, 1.5f, Playerl);
+            //3 1.5f
+            pcls = Physics.CheckCapsule(transform.position + upoff, transform.position + dwnoff, 1.2f, Playerl);
 
             pdet = Physics.CheckSphere(transform.position, pdetr, Playerl);
             if (pdet == true)
@@ -305,8 +305,9 @@ public class EnemySb : MonoBehaviour
                             {
                                 attckb();
                             }
-                            //if (eblad.transform.localPosition != strtrotbld.transform.localPosition)
-                            if (Vector3.Distance(eblad.transform.localPosition, strtrotbld.transform.localPosition) >= .01f)
+                            //if (eblad.transform.localPosition != strtrotbld.transform.localPosition) 
+                            // >=.01f .1f
+                            if (Vector3.Distance(eblad.transform.localPosition, strtrotbld.transform.localPosition) >= .55f)
                             {
                                 if (plswrdsn == true)
                                 {
@@ -434,7 +435,9 @@ public class EnemySb : MonoBehaviour
         {
             ebladb.transform.RotateAround(this.transform.position, this.transform.up - this.transform.right, -500 * Time.deltaTime);
         }
-        stratt = false;
+        //stratt = false; 
+        //.1f
+        DelayHelper.DelayAction(this, strattf, .3f);
     }
     void eMove()
     {
@@ -473,5 +476,9 @@ public class EnemySb : MonoBehaviour
     public void ishvlt()
     {
         ehealth -= ehealth;
+    }
+    void strattf()
+    {
+        stratt = false;
     }
 }

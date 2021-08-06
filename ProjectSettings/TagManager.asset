@@ -19,6 +19,7 @@ TagManager:
   - sword
   - thrnswrd
   - ebld
+  - estp
   layers:
   - Default
   - TransparentFX
