@@ -20,6 +20,7 @@ TagManager:
   - thrnswrd
   - ebld
   - estp
+  - mplt
   layers:
   - Default
   - TransparentFX

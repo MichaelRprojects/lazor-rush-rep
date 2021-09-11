@@ -28,6 +28,8 @@ public class EnemyS : MonoBehaviour
     bool isstp = false;
     int stpang = 90;
 
+    Vector3 kpscal;
+
     [SerializeField] LayerMask grounded;
     bool blockc;
     public static bool blockb = false;
@@ -61,6 +63,7 @@ public class EnemyS : MonoBehaviour
         Pl = GameObject.Find("Player").transform;
         zt = 0;
         enemiestres = GameObject.FindGameObjectsWithTag("estp");
+        //kpscal = this.transform.localScale;
         isstp = false;
         blckrfnd = null;
         attcamnt = 0;
@@ -131,6 +134,10 @@ public class EnemyS : MonoBehaviour
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.z, 0, 0);
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.y, 0, 0);
         }
+        //if (this.transform.localScale ! = kpscal)
+        //{
+        //this.transform.localScale = kpscal;
+        //}
         if (PMovement.isdead == false)
         {
             if (pdet == false)

@@ -18,6 +18,7 @@ public class Level01Controller : MonoBehaviour
     [SerializeField] Text Testtx;
     [SerializeField] GameObject Egprompt;
     [SerializeField] GameObject Elgprompt;
+    [SerializeField] GameObject Eusprompt;
     [SerializeField] GameObject NEStam;
     [SerializeField] GameObject Hud;
     [SerializeField] GameObject deadr;
@@ -33,6 +34,7 @@ public class Level01Controller : MonoBehaviour
     public static bool respawn = true;
     public static bool Hvis = false;
     public static bool Haud = false;
+    public static bool eusepr = false;
     bool hauds = false;
     bool pdsin = true;
     public static bool pgpaused = false;
@@ -95,6 +97,15 @@ public class Level01Controller : MonoBehaviour
         if (PMovement.NEStamMes == false)
         {
             NEStam.SetActive(false);
+        }
+        //Debug.Log(eusepr);
+        if (eusepr == true)
+        {
+            Eusprompt.SetActive(true);
+        }
+        if (eusepr == false)
+        {
+            Eusprompt.SetActive(false);
         }
         if (Hvis == true)
         {

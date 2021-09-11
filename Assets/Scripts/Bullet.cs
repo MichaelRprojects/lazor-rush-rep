@@ -46,7 +46,7 @@ public class Bullet : MonoBehaviour
         sdstrct();
         }
         //|| other.tag != "shield"
-        if (other.tag != "pshield" && other.tag != "shield")
+        if (other.tag != "pshield" && other.tag != "shield" && other.tag != "mplt")
         {
             mtht = true;
             sdstrct();

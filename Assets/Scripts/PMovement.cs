@@ -16,8 +16,8 @@ public class PMovement : MonoBehaviour
     public static float Health = 1000;
     public static float DHealth = 1000;
     public static int MaxHealth = 1000;
-    //2
-    public static int Hdamage = 525;
+    //2 525
+    public static int Hdamage = 1575;
     public static bool thvol = false;
     bool ebdmgd = false;
     bool eexdmgd = false;
@@ -54,6 +54,10 @@ public class PMovement : MonoBehaviour
 
     Vector3 sldir = Vector3.zero;
     bool isslope2 = false;
+
+    bool platformed = false;
+    GameObject plt = null;
+    Vector3 pltdr;
 
     float airslow = 1f;
     bool dasha = false;
@@ -96,6 +100,9 @@ public class PMovement : MonoBehaviour
 
         airslow = 1f;
         jumpnum = 2;
+
+        platformed = false;
+        plt = null;
     }
     // Start is called before the first frame update
     void Start()
@@ -143,6 +150,20 @@ public class PMovement : MonoBehaviour
             DelayHelper.DelayAction(this, isldf, .25f);
             //airslow =1
             //isslope = false;
+        }
+
+        if (other.tag == "mplt")
+        {
+            //Debug.Log("hit");
+            //platformed = true;
+            //plt = other.gameObject;
+            //nnpltdr = plt.transform.position- this.transform.position;
+            //pltdr = -plt.transform.right - this.transform.position;
+            //nnif (platformed == true)
+            //nn{
+            //nntransform.parent = other.transform;
+            //nn}
+
         }
     }
 
@@ -212,7 +233,7 @@ public class PMovement : MonoBehaviour
             {
                 if (Level01Controller.pgpaused == false)
                 {
-                    if (isslope2 == false && Melee.isbswing == false)
+                    if (isslope2 == false && Melee.isbswing == false && platformed == false)
                     {
                         Vector3 move = transform.right * x + transform.forward * z;
                         controller.Move(move * (speed / airslow) * Time.deltaTime);
@@ -248,6 +269,14 @@ public class PMovement : MonoBehaviour
                         //-1.8
                         //gravity = -1.2f;
                     }
+
+                    //if (platformed == true)
+                    //{
+                        //Vector3 move5 = transform.right * x + transform.forward * z; 
+                        //move5 += pltdr;
+                        //nn (airslow *4f)((speed * 1.5f) / airslow)
+                        //controller.Move(move5 * (.1f) * Time.deltaTime);
+                    //}
 
                     //Vector3 move = transform.right * x + transform.forward * z;
                     //controller.Move(move * (speed / airslow) * Time.deltaTime);
