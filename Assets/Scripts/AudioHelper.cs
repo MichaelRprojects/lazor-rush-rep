@@ -5,6 +5,7 @@ using UnityEngine;
 public static class AudioHelper
 {
     //, float volume
+    public static float svol;
     public static AudioSource PlayClip2D(AudioClip clip)
     {
         GameObject audioObject = new GameObject("2DAudio");
@@ -12,6 +13,8 @@ public static class AudioHelper
 
         audioSource.clip = clip;
         //audioSource.volume volume;
+        svol = PlayerPrefs.GetFloat("svolsv");
+        audioSource.volume = svol;
 
         audioSource.Play();
 

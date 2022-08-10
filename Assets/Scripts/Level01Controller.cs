@@ -24,7 +24,12 @@ public class Level01Controller : MonoBehaviour
     [SerializeField] GameObject deadr;
     [SerializeField] GameObject hurtr;
     [SerializeField] GameObject PMenu;
+    [SerializeField] Slider VolumeBarb;
+    [SerializeField] Slider SFXBarb;
+    [SerializeField] Text tracknumTextView;
     [SerializeField] GameObject gpMenu;
+    [SerializeField] GameObject gpMenuOP;
+    [SerializeField] GameObject gpMenuOPCN;
     [SerializeField] GameObject gpbgrnd;
     [SerializeField] AudioClip HrtS = null;
     [SerializeField] AudioClip lsngS = null;
@@ -35,6 +40,8 @@ public class Level01Controller : MonoBehaviour
     public static bool Hvis = false;
     public static bool Haud = false;
     public static bool eusepr = false;
+    public bool iststlv;
+    public bool islv1;
     bool hauds = false;
     bool pdsin = true;
     public static bool pgpaused = false;
@@ -48,6 +55,24 @@ public class Level01Controller : MonoBehaviour
     void Start()
     {
         currentScore = 0;
+        //Debug.Log(AudioManager.sngnum);
+        //Debug.Log(PlayerPrefs.GetFloat("songnum"));
+        //AudioManager.sngnum = 1;
+        VolumeBarb.value = PlayerPrefs.GetFloat("pvolsv");
+        SFXBarb.value = PlayerPrefs.GetFloat("svolsv");
+
+        //if (iststlv)
+        //{
+            //PlayerPrefs.SetFloat("songnum", 2);
+        //}
+        //if (islv1)
+        //{
+            //PlayerPrefs.SetFloat("songnum", 1);
+        //}
+
+        //AudioManager.sngnum = 1;
+        //Debug.Log(PlayerPrefs.GetFloat("songnum"));
+        //Debug.Log(AudioManager.sngnum);
     }
 
     // Update is called once per frame
@@ -57,6 +82,8 @@ public class Level01Controller : MonoBehaviour
         {
             //IncreaseScore(5);
             //currentScore += 5;
+            //PlayerPrefs.SetFloat("songnum", 1);
+            //Debug.Log(PlayerPrefs.GetFloat("songnum"));
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -142,6 +169,10 @@ public class Level01Controller : MonoBehaviour
             deadr.SetActive(false);
             PMenu.SetActive(false);
         }
+        AudioManager.pvol = VolumeBarb.value;
+        PlayerPrefs.SetFloat("pvolsv", AudioManager.pvol);
+        PlayerPrefs.SetFloat("svolsv", SFXBarb.value);
+        tracknumTextView.text = PlayerPrefs.GetFloat("songnum").ToString();
         if (pgpaused == true)
         {
             Time.timeScale = 0;
@@ -153,6 +184,8 @@ public class Level01Controller : MonoBehaviour
             Time.timeScale = 1;
             gpbgrnd.SetActive(false);
             gpMenu.SetActive(false);
+            gpMenuOP.SetActive(false);
+            gpMenuOPCN.SetActive(false);
         }
     }
     //public void IncreaseScore(int scoreIncrease)
@@ -178,6 +211,32 @@ public class Level01Controller : MonoBehaviour
     public void haudsf()
     {
         hauds = false;
+    }
+    public void sngnumup()
+    {
+        if (PlayerPrefs.GetFloat("songnum") < 7)
+        {
+            AudioManager.nlld = false;
+            PlayerPrefs.SetFloat("songnum", PlayerPrefs.GetFloat("songnum") + 1);
+        }
+        if (PlayerPrefs.GetFloat("songnum") == 7)
+        {
+            AudioManager.nlld = false;
+            PlayerPrefs.SetFloat("songnum", 1);
+        }
+    }
+    public void sngnumdwn()
+    {
+        if (PlayerPrefs.GetFloat("songnum") > 0)
+        {
+            AudioManager.nlld = false;
+            PlayerPrefs.SetFloat("songnum", PlayerPrefs.GetFloat("songnum") - 1);
+        }
+        if (PlayerPrefs.GetFloat("songnum") == 0)
+        {
+            AudioManager.nlld = false;
+            PlayerPrefs.SetFloat("songnum", 6);
+        }
     }
     public void ExitLevel()
     {
