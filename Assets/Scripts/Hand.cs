@@ -6,7 +6,7 @@ public class Hand : MonoBehaviour
 {
     Transform Plm;
     [SerializeField] LayerMask Playerl;
-    public float pdeth = 20;
+    public float pdeth = 40;
     bool aimt;
     //float zt2 = 0;
     // Start is called before the first frame update
@@ -26,6 +26,7 @@ public class Hand : MonoBehaviour
         //Vector3 lookVectorh = Plm.transform.position - transform.position;
         //Quaternion rot2 = Quaternion.FromToRotation(this.transform.forward, lookVectorh);
         //this.transform.localRotation = Quaternion.Lerp(this.transform.rotation, rot2, 10f * Time.deltaTime);
+
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, 0);
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.z, 0, 0);
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.y, 0, 0);
@@ -35,6 +36,12 @@ public class Hand : MonoBehaviour
         {
             this.transform.LookAt(Plm);
         }
+        //if (aimt == false)
+        //{
+            //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, 0);
+            //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.z, 0, 0);
+            //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.y, 0, 0);
+        //}
 
         //this.transform.LookAt(loo);
     }

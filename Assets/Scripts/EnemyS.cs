@@ -42,6 +42,7 @@ public class EnemyS : MonoBehaviour
 
     public float Mvspdb = 64f;
     public bool issnpr = false;
+    public bool isrcktr = false;
     //6.5
     public float snppdrmns = 10f;
 
@@ -274,7 +275,7 @@ public class EnemyS : MonoBehaviour
                         if (attcamnt == mxattcamnt)
                         {
                             attck();
-                            if (issnpr == true)
+                            if (issnpr == true && isrcktr == false)
                             {
                                 DelayHelper.DelayAction(this, attck, .1f);
                                 //DelayHelper.DelayAction(this, attck, .2f);
@@ -536,13 +537,20 @@ public class EnemyS : MonoBehaviour
             //Vector3 ebspn = epos + edir * 1.1f;
             Rigidbody rb = Instantiate(projectile, ebspn, erot).GetComponent<Rigidbody>();
             rb.velocity = transform.TransformDirection(offang.eulerAngles);
-            //rb.transform.eulerAngles = offang.eulerAngles;
-            //my nd tdt
-            //rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            //32 96 32
+        //rb.transform.eulerAngles = offang.eulerAngles;
+        //my nd tdt
+        //rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+        //32 96 32
+        if (isrcktr == false)
+        {
             rb.AddForce(ehand.transform.forward * bltspd, ForceMode.Impulse);
+        }
+        if (isrcktr == true)
+        {
+            rb.AddForce(ehand.transform.forward * 0f, ForceMode.Impulse);
+        }
 
-            AudioHelper.PlayClip2D(LlS);
+        AudioHelper.PlayClip2D(LlS);
 
             //attcamnt = 0;
             //attacka = false;

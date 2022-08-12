@@ -21,6 +21,7 @@ TagManager:
   - ebld
   - estp
   - mplt
+  - shootableb
   layers:
   - Default
   - TransparentFX

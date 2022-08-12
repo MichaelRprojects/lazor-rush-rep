@@ -7,7 +7,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] Camera cameracontroller;
     [SerializeField] Transform rayorigin;
     // 2 had sf
-    float shootDistance = 20f;
+    float shootDistance = 40f;
     int weaponDamage = 50;
     [SerializeField] GameObject tester;
 
@@ -235,6 +235,14 @@ public class Shooting : MonoBehaviour
                 if (mine != null)
                 {
                     mine.explodemn();
+                }
+            }
+            if (objectHit.transform.tag == "shootableb")
+            {
+                erocket rocket = objectHit.transform.gameObject.GetComponent<erocket>();
+                if (rocket != null)
+                {
+                    rocket.sdstrct();
                 }
             }
         }

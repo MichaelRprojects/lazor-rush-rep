@@ -288,7 +288,8 @@ public class Melee : MonoBehaviour
                                 Quaternion grrot = cmrf.transform.rotation;
                                 Vector3 grpsn = gpos + gdir * 1.1f;
                                 Rigidbody rbpb = Instantiate(gnde, grpsn, grrot).GetComponent<Rigidbody>();
-                                rbpb.AddForce(gspn.transform.forward * 12f, ForceMode.Impulse);
+                                //was 12f
+                                rbpb.AddForce(gspn.transform.forward * 24f, ForceMode.Impulse);
 
                                 gunua = true;
                             }
