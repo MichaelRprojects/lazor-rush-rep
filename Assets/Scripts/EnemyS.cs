@@ -488,7 +488,7 @@ public class EnemyS : MonoBehaviour
             }
             if (ehealth <= 0)
             {
-                Level01Controller.currentScore += 20;
+                Level01Controller.currentScore += 1;
                 offsetyb = Random.Range(-1.0f, 1.0f);
                 offsetxb = Random.Range(-1.0f, 1.0f);
                 Vector3 upoff5 = new Vector3(offsetyb, offsetyb, offsetyb);

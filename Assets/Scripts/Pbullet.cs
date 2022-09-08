@@ -17,8 +17,10 @@ public class Pbullet : MonoBehaviour
     {
         rorg = GameObject.Find("Gun end").transform;
         Destroy(this.gameObject, 5f);
+        //was60f
         shootdist = 40f;
         //DelayHelper.DelayAction(this, chckspa, .2f);
+        // upd
     }
     //private void OnTriggerEnter(Collider other)
     private void OnTriggerEnter(Collider other)

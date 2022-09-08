@@ -7,6 +7,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] Camera cameracontroller;
     [SerializeField] Transform rayorigin;
     // 2 had sf
+    //60
     float shootDistance = 40f;
     int weaponDamage = 50;
     [SerializeField] GameObject tester;
@@ -193,8 +194,8 @@ public class Shooting : MonoBehaviour
         Quaternion erotp = cameracontroller.transform.rotation;
         Vector3 ebspnp = eposp + edirp * 1.1f;
         Rigidbody rbpb = Instantiate(pprojectile, ebspnp, erotp).GetComponent<Rigidbody>();
-        //32
-        rbpb.AddForce(rayorigin.transform.forward * 90f, ForceMode.Impulse);
+        //32 90
+        rbpb.AddForce(rayorigin.transform.forward * 140f, ForceMode.Impulse);
 
         Pshootdis = shootDistance;
         //if (Vector3.Distance(rayorigin.transform.position, rbpb.transform.position) > 3f)

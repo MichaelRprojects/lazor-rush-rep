@@ -63,6 +63,9 @@ public class PMovement : MonoBehaviour
     bool dasha = false;
     //float lspeed;
 
+    float airtmd = 0;
+    int mxairtmd = 100;
+
     public static bool isdead = false;
     public static bool isladder = false;
     public static bool isladdera = false;
@@ -101,9 +104,15 @@ public class PMovement : MonoBehaviour
         airslow = 1f;
         jumpnum = 2;
 
+        airtmd = 0;
+
         platformed = false;
         plt = null;
-    }
+
+        //newer
+        isladder = false;
+        isladdera = false;
+}
     // Start is called before the first frame update
     void Start()
     {
@@ -264,8 +273,8 @@ public class PMovement : MonoBehaviour
                     {
                         Vector3 move2 = transform.right * x + transform.forward * z;
                         move2 += slpvec2;
-                        //(airslow *4f)
-                        controller.Move(move2 * ((speed * 1.5f) / airslow) * Time.deltaTime);
+                        //(airslow *4f)     (speed *1.5f)
+                        controller.Move(move2 * ((speed * 2.5f) / airslow) * Time.deltaTime);
                         //-1.8
                         //gravity = -1.2f;
                     }
@@ -293,12 +302,22 @@ public class PMovement : MonoBehaviour
             {
                 airslow = 1f;
                 jumpnum = 2;
+
+                airtmd = 0;
             }
 
             if (!isGrounded)
             {
                 airslow = 1.4f;
                 isslope2 = false;
+                if (airtmd < mxairtmd)
+                {
+                    airtmd = Mathf.Clamp(airtmd + (120 * Time.deltaTime), 0.0f, mxairtmd);
+                }
+                if (airtmd == mxairtmd)
+                {
+                    aslwr();
+                }
             }
             if (isladder == true)
             {
@@ -512,6 +531,7 @@ public class PMovement : MonoBehaviour
                     }
                 }
             }
+            //was 
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 BSprinttrue();
@@ -778,6 +798,18 @@ public class PMovement : MonoBehaviour
     public void BSprinttrue()
     {
         BSprint = true;
+    }
+    public void aslwr()
+    {
+        if (!isGrounded)
+        {
+            BSprinttrue();
+            Stamloss = false;
+            pissprnt = false;
+            BStamloss = false;
+            pBStamloss = false;
+            speed = 12f;
+        }
     }
     public void HVdamage()
     {

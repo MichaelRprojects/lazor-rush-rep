@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Level01Controller : MonoBehaviour
 {
     [SerializeField] Text currentScoreTextView;
+    [SerializeField] Text vrchckrTextView;
     [SerializeField] Slider HealthBar;
     [SerializeField] Slider StaminaBar;
     [SerializeField] Slider EshldBar;
@@ -19,6 +20,7 @@ public class Level01Controller : MonoBehaviour
     [SerializeField] GameObject Egprompt;
     [SerializeField] GameObject Elgprompt;
     [SerializeField] GameObject Eusprompt;
+    [SerializeField] GameObject chcksvdnt;
     [SerializeField] GameObject NEStam;
     [SerializeField] GameObject Hud;
     [SerializeField] GameObject deadr;
@@ -26,11 +28,18 @@ public class Level01Controller : MonoBehaviour
     [SerializeField] GameObject PMenu;
     [SerializeField] Slider VolumeBarb;
     [SerializeField] Slider SFXBarb;
+    [SerializeField] Slider MsentBarb;
     [SerializeField] Text tracknumTextView;
     [SerializeField] GameObject gpMenu;
     [SerializeField] GameObject gpMenuOP;
     [SerializeField] GameObject gpMenuOPCN;
     [SerializeField] GameObject gpbgrnd;
+    [SerializeField] Transform Pl;
+    [SerializeField] Transform chckpointaspwn;
+    [SerializeField] Transform chckpointbspwn;
+    [SerializeField] Transform chckpointcspwn;
+    [SerializeField] Transform chckpointdspwn;
+    [SerializeField] Transform chckpointespwn;
     [SerializeField] AudioClip HrtS = null;
     [SerializeField] AudioClip lsngS = null;
     [SerializeField] AudioClip DthS = null;
@@ -40,16 +49,24 @@ public class Level01Controller : MonoBehaviour
     public static bool Hvis = false;
     public static bool Haud = false;
     public static bool eusepr = false;
+    public static bool offchcknt = true;
     public bool iststlv;
     public bool islv1;
+    public bool islv2;
+    public static float chckpntcntr;
+    public static int timrcnum;
     bool hauds = false;
     bool pdsin = true;
     public static bool pgpaused = false;
+    public static bool youwin = false;
 
     public void Awake()
     {
         respawn = false;
         pgpaused = false;
+        youwin = false;
+        //Pl = GameObject.Find("Player").transform;
+        //Pl.transform.position = chckpointaspwn.transform.position;
     }
     // Start is called before the first frame update
     void Start()
@@ -60,14 +77,78 @@ public class Level01Controller : MonoBehaviour
         //AudioManager.sngnum = 1;
         VolumeBarb.value = PlayerPrefs.GetFloat("pvolsv");
         SFXBarb.value = PlayerPrefs.GetFloat("svolsv");
+        MsentBarb.value = PlayerPrefs.GetFloat("msenstsv", 5f);
+
+        //Pl = GameObject.Find("Player").transform;
+
+        if (iststlv)
+        {
+            chckpntcntr = PlayerPrefs.GetFloat("tstlvc");
+            timrcnum = 0;
+        }
+        if (islv1)
+        {
+            chckpntcntr = PlayerPrefs.GetFloat("lv1c");
+            timrcnum = 1;
+        }
+        if (islv2)
+        {
+            chckpntcntr = PlayerPrefs.GetFloat("lv2c");
+            timrcnum = 2;
+        }
+        if (chckpntcntr == 1)
+        {
+            Pl = GameObject.Find("Player").transform;
+        CharacterController ccp = Pl.GetComponent<CharacterController>();
+        ccp.enabled = false;
+            Pl.transform.position = chckpointaspwn.transform.position;
+            Pl.transform.rotation = chckpointaspwn.transform.rotation;
+            ccp.enabled = true;
+        }
+        if (chckpntcntr == 2)
+        {
+            Pl = GameObject.Find("Player").transform;
+            CharacterController ccp = Pl.GetComponent<CharacterController>();
+            ccp.enabled = false;
+            Pl.transform.position = chckpointbspwn.transform.position;
+            Pl.transform.rotation = chckpointbspwn.transform.rotation;
+            ccp.enabled = true;
+        }
+        if (chckpntcntr == 3)
+        {
+            Pl = GameObject.Find("Player").transform;
+            CharacterController ccp = Pl.GetComponent<CharacterController>();
+            ccp.enabled = false;
+            Pl.transform.position = chckpointcspwn.transform.position;
+            Pl.transform.rotation = chckpointcspwn.transform.rotation;
+            ccp.enabled = true;
+        }
+        if (chckpntcntr == 4)
+        {
+            Pl = GameObject.Find("Player").transform;
+            CharacterController ccp = Pl.GetComponent<CharacterController>();
+            ccp.enabled = false;
+            Pl.transform.position = chckpointdspwn.transform.position;
+            Pl.transform.rotation = chckpointdspwn.transform.rotation;
+            ccp.enabled = true;
+        }
+        if (chckpntcntr == 5)
+        {
+            Pl = GameObject.Find("Player").transform;
+            CharacterController ccp = Pl.GetComponent<CharacterController>();
+            ccp.enabled = false;
+            Pl.transform.position = chckpointespwn.transform.position;
+            Pl.transform.rotation = chckpointespwn.transform.rotation;
+            ccp.enabled = true;
+        }
 
         //if (iststlv)
         //{
-            //PlayerPrefs.SetFloat("songnum", 2);
+        //PlayerPrefs.SetFloat("songnum", 2);
         //}
         //if (islv1)
         //{
-            //PlayerPrefs.SetFloat("songnum", 1);
+        //PlayerPrefs.SetFloat("songnum", 1);
         //}
 
         //AudioManager.sngnum = 1;
@@ -84,12 +165,18 @@ public class Level01Controller : MonoBehaviour
             //currentScore += 5;
             //PlayerPrefs.SetFloat("songnum", 1);
             //Debug.Log(PlayerPrefs.GetFloat("songnum"));
+            PlayerPrefs.SetFloat("tstlvc", 0);
+            PlayerPrefs.SetFloat("lv1c", 0);
+            chckpntcntr = 0;
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             //ExitLevel();
-            AudioHelper.PlayClip2D(PsmnS);
-            pgpaused = !pgpaused;
+            if (youwin == false)
+            {
+                AudioHelper.PlayClip2D(PsmnS);
+                pgpaused = !pgpaused;
+            }
         }
         HealthBar.value = PMovement.Health;
         StaminaBar.value = PMovement.Stamina;
@@ -106,8 +193,12 @@ public class Level01Controller : MonoBehaviour
         Clipnum.text =
            Shooting.clip.ToString() + "/" + Shooting.mclip.ToString();
 
-        currentScoreTextView.text =
-           "Score: " + currentScore.ToString();
+        //currentScoreTextView.text =
+           //"Score: " + currentScore.ToString();
+        //currentScoreTextView.text =
+           //"chckc" + chckpntcntr.ToString();
+        //vrchckrTextView.text =
+           //"lvtc" + PlayerPrefs.GetFloat("tstlvc").ToString() + "lvc1" + PlayerPrefs.GetFloat("lv1c").ToString();
 
         if (PMovement.isladdera == true)
         {
@@ -172,6 +263,7 @@ public class Level01Controller : MonoBehaviour
         AudioManager.pvol = VolumeBarb.value;
         PlayerPrefs.SetFloat("pvolsv", AudioManager.pvol);
         PlayerPrefs.SetFloat("svolsv", SFXBarb.value);
+        PlayerPrefs.SetFloat("msenstsv", MsentBarb.value);
         tracknumTextView.text = PlayerPrefs.GetFloat("songnum").ToString();
         if (pgpaused == true)
         {
@@ -186,6 +278,32 @@ public class Level01Controller : MonoBehaviour
             gpMenu.SetActive(false);
             gpMenuOP.SetActive(false);
             gpMenuOPCN.SetActive(false);
+        }
+
+        if (iststlv)
+        {
+            PlayerPrefs.SetFloat("tstlvc", chckpntcntr);
+        }
+        if (islv1)
+        {
+            PlayerPrefs.SetFloat("lv1c", chckpntcntr);
+        }
+        if (islv2)
+        {
+            PlayerPrefs.SetFloat("lv2c", chckpntcntr);
+        }
+        if (offchcknt == true)
+        {
+            chcksvdnt.SetActive(false);
+        }
+        if (offchcknt == false)
+        {
+            chcksvdnt.SetActive(true);
+            DelayHelper.DelayAction(this, rmvchcknt, 2f);
+        }
+        if (youwin == true)
+        {
+            pgpaused = true;
         }
     }
     //public void IncreaseScore(int scoreIncrease)
@@ -255,11 +373,135 @@ public class Level01Controller : MonoBehaviour
         {
             PlayerPrefs.SetInt("HighScore", currentScore);
         }
-        SceneManager.LoadScene("Level01");
+        if (iststlv)
+        {
+           SceneManager.LoadScene("Level01");
+        }
+        if (islv1)
+        {
+            SceneManager.LoadScene("Level01A");
+        }
+        if (islv2)
+        {
+            SceneManager.LoadScene("Level01B");
+        }
     }
     public void Resume()
     {
-        AudioHelper.PlayClip2D(PsmnS);
-        pgpaused = false;
+        if (youwin == false)
+        {
+            AudioHelper.PlayClip2D(PsmnS);
+            pgpaused = false;
+        }
     }
+    public void rmvchcknt()
+    {
+        offchcknt = true;
+    }
+    public static void timerc(float tmrcd, float curtm)
+    {
+        if (timrcnum == 0)
+        {
+            curtm = PlayerPrefs.GetFloat("tstlvtm");
+            PlayerPrefs.SetFloat("tstlvtm", curtm += tmrcd);
+        }
+        if (timrcnum == 1)
+        {
+            curtm = PlayerPrefs.GetFloat("lv1tm");
+            PlayerPrefs.SetFloat("lv1tm", curtm += tmrcd);
+        }
+        if (timrcnum == 2)
+        {
+            curtm = PlayerPrefs.GetFloat("lv2tm");
+            PlayerPrefs.SetFloat("lv2tm", curtm += tmrcd);
+        }
+    }
+    public static void distim()
+    {
+        if (timrcnum == 0)
+        {
+            Timer.minut = ((int)PlayerPrefs.GetFloat("tstlvtm") / 60).ToString();
+            if (PlayerPrefs.GetFloat("tstlvtm") % 60 >= 10)
+            {
+                Timer.secon = (PlayerPrefs.GetFloat("tstlvtm") % 60).ToString("f2");
+            }
+            if (PlayerPrefs.GetFloat("tstlvtm") % 60 < 10)
+            {
+                Timer.secon = "0" + (PlayerPrefs.GetFloat("tstlvtm") % 60).ToString("f2");
+            }
+        }
+        if (timrcnum == 1)
+        {
+            Timer.minut = ((int)PlayerPrefs.GetFloat("lv1tm") / 60).ToString();
+            if (PlayerPrefs.GetFloat("lv1tm") % 60 >= 10)
+            {
+                Timer.secon = (PlayerPrefs.GetFloat("lv1tm") % 60).ToString("f2");
+            }
+            if (PlayerPrefs.GetFloat("lv1tm") % 60 < 10)
+            {
+                Timer.secon = "0" + (PlayerPrefs.GetFloat("lv1tm") % 60).ToString("f2");
+            }
+        }
+        if (timrcnum == 2)
+        {
+            Timer.minut = ((int)PlayerPrefs.GetFloat("lv2tm") / 60).ToString();
+            if (PlayerPrefs.GetFloat("lv2tm") % 60 >= 10)
+            {
+                Timer.secon = (PlayerPrefs.GetFloat("lv2tm") % 60).ToString("f2");
+            }
+            if (PlayerPrefs.GetFloat("lv2tm") % 60 < 10)
+            {
+                Timer.secon = "0" + (PlayerPrefs.GetFloat("lv2tm") % 60).ToString("f2");
+            }
+        }
+    }
+    public static void klnmrc(float klnmrcd, float curklnm)
+    {
+        if (timrcnum == 0)
+        {
+            curklnm = PlayerPrefs.GetFloat("tstlvklnm");
+            PlayerPrefs.SetFloat("tstlvklnm", curklnm += klnmrcd);
+            Timer.klltl = PlayerPrefs.GetFloat("tstlvklnm");
+        }
+        if (timrcnum == 1)
+        {
+            curklnm = PlayerPrefs.GetFloat("lv1klnm");
+            PlayerPrefs.SetFloat("lv1klnm", curklnm += klnmrcd);
+            Timer.klltl = PlayerPrefs.GetFloat("lv1klnm");
+        }
+        if (timrcnum == 2)
+        {
+            curklnm = PlayerPrefs.GetFloat("lv2klnm");
+            PlayerPrefs.SetFloat("lv2klnm", curklnm += klnmrcd);
+            Timer.klltl = PlayerPrefs.GetFloat("lv2klnm");
+        }
+    }
+    public void golev()
+    {
+        if (islv1)
+        {
+            PlayerPrefs.SetFloat("songnum", 4);
+            SceneManager.LoadScene("Level01B");
+        }
+        if (islv2)
+        {
+            PlayerPrefs.SetFloat("songnum", 3);
+            SceneManager.LoadScene("Level01A");
+        }
+    }
+    public static void unlclev()
+    {
+        if (timrcnum == 1)
+        {
+            PlayerPrefs.SetInt("lv2ul", 1);
+        }
+    }
+        //public static void disklnm()
+        //{
+        //if (timrcnum == 0)
+        //{
+        //Timer.minut = ((int)PlayerPrefs.GetFloat("tstlvtm") / 60).ToString();
+        //Timer.secon = (PlayerPrefs.GetFloat("tstlvtm") % 60).ToString("f2");
+        //}
+        //}
 }

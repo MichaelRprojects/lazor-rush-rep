@@ -32,7 +32,8 @@ public class pthrwbl : MonoBehaviour
             //Debug.Log(i);
             if (enemiestr[i] != null)
             {
-                if (Vector3.Distance(this.transform.position, enemiestr[i].transform.position) <= 10)
+                //was<=10
+                if (Vector3.Distance(this.transform.position, enemiestr[i].transform.position) <= 20)
                 {
                     //Debug.Log(i);
                     etargs = enemiestr[i].transform.position;

@@ -5,12 +5,14 @@ using UnityEngine;
 public class MouseLook : MonoBehaviour
 {
     public Transform playerBody;
+    public static float msenst = 5f;
     float xRotation = 0f;
     bool aimedt = false;
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        //msenst = PlayerPrefs.GetFloat("msenstsv", 5f);
     }
 
     // Update is called once per frame
@@ -27,8 +29,10 @@ public class MouseLook : MonoBehaviour
             if (PMovement.isdead == false && Level01Controller.pgpaused == false)
         {
             //was *500f * Time.deltaTime; at end next 2
-            float mouseX = Input.GetAxis("Mouse X") * 5f;
-            float mouseY = Input.GetAxis("Mouse Y") * 5f;
+            //was *5f * Time.deltaTime; at end next 2
+            msenst = PlayerPrefs.GetFloat("msenstsv", 5f);
+            float mouseX = Input.GetAxis("Mouse X") * msenst;
+            float mouseY = Input.GetAxis("Mouse Y") * msenst;
 
             if (Melee.isbswing == false)
             {

@@ -39,6 +39,7 @@ public class Mover : MonoBehaviour
     public bool cisax1 = false;
     public float omovspd = .1f;
     public float omovspdb;
+    public float trnspd =5f;
     int mvnum = 1;
     // Start is called before the first frame update
     void Start()
@@ -268,7 +269,8 @@ public class Mover : MonoBehaviour
                     {
                         //this.transform.RotateAround(this.transform.position, this.transform.up, -50f * Time.deltaTime);
                         Quaternion frot = Quaternion.LookRotation((this.transform.position - pointb.transform.position));
-                        this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * 5f);
+                        //was tdt* 5f
+                        this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
                     }
                 }
                 //Rigidbody rbomv = this.GetComponent<Rigidbody>();
@@ -333,7 +335,8 @@ public class Mover : MonoBehaviour
                 {
                     //this.transform.RotateAround(this.transform.position, this.transform.up, -50f * Time.deltaTime);
                     Quaternion frot = Quaternion.LookRotation((this.transform.position - pointc.transform.position));
-                    this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * 5f);
+                    //was tdt* 5f
+                    this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
                 }
                 //Rigidbody rbomvb = this.GetComponent<Rigidbody>();
                 //my nd dtd was fm.f 32 64f
@@ -373,7 +376,8 @@ public class Mover : MonoBehaviour
                 {
                     //this.transform.RotateAround(this.transform.position, this.transform.up, -50f * Time.deltaTime);
                     Quaternion frot = Quaternion.LookRotation((this.transform.position - pointd.transform.position));
-                    this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * 5f);
+                    //was tdt *5f
+                    this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
                 }
                 //Rigidbody rbomvb = this.GetComponent<Rigidbody>();
                 //my nd dtd was fm.f 32 64f
@@ -422,7 +426,8 @@ public class Mover : MonoBehaviour
                         {
                             //this.transform.RotateAround(this.transform.position, this.transform.up, -50f * Time.deltaTime);
                             Quaternion frot = Quaternion.LookRotation((this.transform.position - pointa.transform.position));
-                            this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * 5f);
+                            //was tdt*5f
+                            this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
                         }
                     }
                     //Rigidbody rbomvb = this.GetComponent<Rigidbody>();
@@ -473,7 +478,8 @@ public class Mover : MonoBehaviour
                         {
                             //this.transform.RotateAround(this.transform.position, this.transform.up, -50f * Time.deltaTime);
                             Quaternion frot = Quaternion.LookRotation((this.transform.position - pointe.transform.position));
-                            this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * 5f);
+                            //was tdt* 5f
+                            this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
                         }
                     }
                     if (crryplr == true)
@@ -516,7 +522,8 @@ public class Mover : MonoBehaviour
                 {
                     //this.transform.RotateAround(this.transform.position, this.transform.up, -50f * Time.deltaTime);
                     Quaternion frot = Quaternion.LookRotation((this.transform.position - pointa.transform.position));
-                    this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * 5f);
+                    //was tdt*5f
+                    this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
                 }
                 //Rigidbody rbomvb = this.GetComponent<Rigidbody>();
                 //my nd dtd was fm.f 32 64f
