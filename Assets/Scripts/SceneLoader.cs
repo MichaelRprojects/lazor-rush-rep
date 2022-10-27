@@ -39,6 +39,13 @@ public class SceneLoader : MonoBehaviour
             PlayerPrefs.SetFloat("lv2klnm", 0);
             //}
         }
+        if (sceneName == "Level01C")
+        {
+            PlayerPrefs.SetFloat("songnum", 2);
+            PlayerPrefs.SetFloat("lv3c", 0);
+            PlayerPrefs.SetFloat("lv3tm", 0);
+            PlayerPrefs.SetFloat("lv3klnm", 0);
+        }
         SceneManager.LoadScene(sceneName);
         
     }
@@ -68,6 +75,10 @@ public class SceneLoader : MonoBehaviour
         if (sceneName == "Level01B")
         {
             PlayerPrefs.SetFloat("songnum", 4);
+        }
+        if (sceneName == "Level01C")
+        {
+            PlayerPrefs.SetFloat("songnum", 2);
         }
         SceneManager.LoadScene(sceneName);
 

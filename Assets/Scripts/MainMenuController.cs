@@ -11,7 +11,9 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] Slider MsentBar;
     [SerializeField] GameObject lv1cntbtn;
     [SerializeField] GameObject lv2cntbtn;
+    [SerializeField] GameObject lv3cntbtn;
     [SerializeField] GameObject lv2grp;
+    [SerializeField] GameObject lv3grp;
     [SerializeField] Text highScoreTextView;
     [SerializeField] Text tracknumTextView;
     int testc = 1;
@@ -27,8 +29,9 @@ public class MainMenuController : MonoBehaviour
             //AudioManager.Instance.PlaySong(startSong);
         //}
         //VolumeBar.value = AudioManager.pvol;
-        VolumeBar.value = PlayerPrefs.GetFloat("pvolsv");
-        SFXBar.value = PlayerPrefs.GetFloat("svolsv");
+        //next two had no ,1
+        VolumeBar.value = PlayerPrefs.GetFloat("pvolsv", 1f);
+        SFXBar.value = PlayerPrefs.GetFloat("svolsv", 1f);
         MsentBar.value = PlayerPrefs.GetFloat("msenstsv", 5f);
 
         //MIGHT FIX 0 VOLUME on 1st build ISSSUE
@@ -52,17 +55,30 @@ public class MainMenuController : MonoBehaviour
         PlayerPrefs.SetFloat("msenstsv", MsentBar.value);
         if (Input.GetKeyDown(KeyCode.C) && Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.R))
         {
+            //all should be 0
             PlayerPrefs.SetFloat("lv1c", 0);
             PlayerPrefs.SetFloat("lv1tm", 0);
             PlayerPrefs.SetFloat("lv1klnm", 0);
+
             PlayerPrefs.SetFloat("lv2c", 0);
             PlayerPrefs.SetFloat("lv2tm", 0);
             PlayerPrefs.SetFloat("lv2klnm", 0);
+
+            PlayerPrefs.SetFloat("lv3c", 0);
+            PlayerPrefs.SetFloat("lv3tm", 0);
+            PlayerPrefs.SetFloat("lv3klnm", 0);
         }
         if (Input.GetKeyDown(KeyCode.C) && Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.R))
         {
             PlayerPrefs.SetInt("lv2ul", 0);
+            PlayerPrefs.SetInt("lv3ul", 0);
         }
+        if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.R))
+        {
+            PlayerPrefs.SetInt("lv2ul", 1);
+            PlayerPrefs.SetInt("lv3ul", 1);
+        }
+
         if (PlayerPrefs.GetFloat("lv1c") == 0 || PlayerPrefs.GetFloat("lv1c") > 90)
         {
             lv1cntbtn.SetActive(false);
@@ -72,6 +88,7 @@ public class MainMenuController : MonoBehaviour
         {
             lv1cntbtn.SetActive(true);
         }
+
         if (PlayerPrefs.GetFloat("lv2c") == 0 || PlayerPrefs.GetFloat("lv2c") > 90)
         {
             lv2cntbtn.SetActive(false);
@@ -80,7 +97,17 @@ public class MainMenuController : MonoBehaviour
         { 
             lv2cntbtn.SetActive(true);
          }
-        if(PlayerPrefs.GetInt("lv2ul") == 1)
+
+        if (PlayerPrefs.GetFloat("lv3c") == 0 || PlayerPrefs.GetFloat("lv3c") > 90)
+        {
+            lv3cntbtn.SetActive(false);
+        }
+        if (PlayerPrefs.GetFloat("lv3c") > 0 && PlayerPrefs.GetFloat("lv3c") < 90)
+        {
+            lv3cntbtn.SetActive(true);
+        }
+
+        if (PlayerPrefs.GetInt("lv2ul") == 1)
         {
             lv2grp.SetActive(true);
         }
@@ -88,7 +115,16 @@ public class MainMenuController : MonoBehaviour
         {
             lv2grp.SetActive(false);
         }
-            //Debug.Log(PlayerPrefs.GetFloat("lv1c"));
+
+        if (PlayerPrefs.GetInt("lv3ul") == 1)
+        {
+            lv3grp.SetActive(true);
+        }
+        if (PlayerPrefs.GetInt("lv3ul") != 1)
+        {
+            lv3grp.SetActive(false);
+        }
+        //Debug.Log(PlayerPrefs.GetFloat("lv1c"));
     }
     public void sngnumup()
     {

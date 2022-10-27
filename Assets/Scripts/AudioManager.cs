@@ -33,9 +33,9 @@ public class AudioManager : MonoBehaviour
         //}
         #endregion
         //Debug.Log(PlayerPrefs.GetFloat("songnum"));
-        sngnum = PlayerPrefs.GetFloat("songnum");
+        //sngnum = PlayerPrefs.GetFloat("songnum");
         //MIGHT FIX 0 TRACKNUM on 1st build ISSSUE
-        //sngnum = PlayerPrefs.GetFloat("songnum", 1f);
+        sngnum = PlayerPrefs.GetFloat("songnum", 1f);
         //OLDif (PlayerPrefs.GetFloat("songnum") == 0){sngnum = 1;}
 
         //Debug.Log(sngnum);
