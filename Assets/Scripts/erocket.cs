@@ -5,7 +5,7 @@ using UnityEngine;
 public class erocket : MonoBehaviour
 {
     Transform Pl;
-    public float rcktspd = 64f;
+    public float rcktspd = 20f;
     bool islookn = true;
     bool stp = false;
     bool mtht = false;
@@ -69,7 +69,7 @@ public class erocket : MonoBehaviour
         Vector3 rtarg = Pl.transform.position - transform.position;
         Vector3 newDirection = Vector3.RotateTowards(transform.forward, rtarg, 1000f * Time.deltaTime, 0.0f);
         //20f
-        transform.Translate(Vector3.forward * Time.deltaTime * 20f, Space.Self);
+        transform.Translate(Vector3.forward * Time.deltaTime * rcktspd, Space.Self);
 
         if (Vector3.Distance(transform.position, Pl.transform.position) < 5f)
         {

@@ -385,7 +385,8 @@ public class PMovement : MonoBehaviour
                 }
             }
 
-            int djunlock = PlayerPrefs.GetInt("Djunlock");
+            //int djunlock = PlayerPrefs.GetInt("Djunlock");
+            int djunlock = 1;
             if (Input.GetKeyDown(KeyCode.I))
             {
                 PlayerPrefs.SetInt("Djunlock", 1);
@@ -438,7 +439,8 @@ public class PMovement : MonoBehaviour
             {
                 if (Stamina >= JumpSc)
                 {
-                    if (Input.GetButtonDown("Jump") && isGrounded)
+                    //was not or isslope
+                    if ((Input.GetButtonDown("Jump") && isGrounded) || (Input.GetButtonDown("Jump") && isslope))
                     {
                         if (Level01Controller.pgpaused == false)
                         {

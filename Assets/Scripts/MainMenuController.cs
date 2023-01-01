@@ -12,8 +12,10 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] GameObject lv1cntbtn;
     [SerializeField] GameObject lv2cntbtn;
     [SerializeField] GameObject lv3cntbtn;
+    [SerializeField] GameObject lv4cntbtn;
     [SerializeField] GameObject lv2grp;
     [SerializeField] GameObject lv3grp;
+    [SerializeField] GameObject lv4grp;
     [SerializeField] Text highScoreTextView;
     [SerializeField] Text tracknumTextView;
     int testc = 1;
@@ -67,16 +69,22 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.SetFloat("lv3c", 0);
             PlayerPrefs.SetFloat("lv3tm", 0);
             PlayerPrefs.SetFloat("lv3klnm", 0);
+
+            PlayerPrefs.SetFloat("lv4c", 0);
+            PlayerPrefs.SetFloat("lv4tm", 0);
+            PlayerPrefs.SetFloat("lv4klnm", 0);
         }
         if (Input.GetKeyDown(KeyCode.C) && Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.R))
         {
             PlayerPrefs.SetInt("lv2ul", 0);
             PlayerPrefs.SetInt("lv3ul", 0);
+            PlayerPrefs.SetInt("lv4ul", 0);
         }
         if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.R))
         {
             PlayerPrefs.SetInt("lv2ul", 1);
             PlayerPrefs.SetInt("lv3ul", 1);
+            PlayerPrefs.SetInt("lv4ul", 1);
         }
 
         if (PlayerPrefs.GetFloat("lv1c") == 0 || PlayerPrefs.GetFloat("lv1c") > 90)
@@ -107,6 +115,15 @@ public class MainMenuController : MonoBehaviour
             lv3cntbtn.SetActive(true);
         }
 
+        if (PlayerPrefs.GetFloat("lv4c") == 0 || PlayerPrefs.GetFloat("lv4c") > 90)
+        {
+            lv4cntbtn.SetActive(false);
+        }
+        if (PlayerPrefs.GetFloat("lv4c") > 0 && PlayerPrefs.GetFloat("lv4c") < 90)
+        {
+            lv4cntbtn.SetActive(true);
+        }
+
         if (PlayerPrefs.GetInt("lv2ul") == 1)
         {
             lv2grp.SetActive(true);
@@ -123,6 +140,14 @@ public class MainMenuController : MonoBehaviour
         if (PlayerPrefs.GetInt("lv3ul") != 1)
         {
             lv3grp.SetActive(false);
+        }
+        if (PlayerPrefs.GetInt("lv4ul") == 1)
+        {
+            lv4grp.SetActive(true);
+        }
+        if (PlayerPrefs.GetInt("lv4ul") != 1)
+        {
+            lv4grp.SetActive(false);
         }
         //Debug.Log(PlayerPrefs.GetFloat("lv1c"));
     }

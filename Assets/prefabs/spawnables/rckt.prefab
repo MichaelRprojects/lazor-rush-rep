@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ff8fe967883ce49a967f6f15b899db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rcktspd: 64
+  rcktspd: 20
   MthtS: {fileID: 8300000, guid: 44060e71dae27ec42a08391c0676304c, type: 3}
   RtrnhtS: {fileID: 8300000, guid: 1c029e04146eea647b8e89928b460bbd, type: 3}
   eexpl: {fileID: 4032041146603647292, guid: dab1d23d52d09054db55b68bd4648018, type: 3}

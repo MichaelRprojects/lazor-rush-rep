@@ -12,6 +12,7 @@ public class Mine : MonoBehaviour
     bool plwrn = true;
     float pdetrb = 10;
     bool pdetb;
+    public float explodedly = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +49,7 @@ public class Mine : MonoBehaviour
                     AudioHelper.PlayClip2D(MnwS);
                     plwrn = false;
                 }
-                DelayHelper.DelayAction(this, explodemn, 1f);
+                DelayHelper.DelayAction(this, explodemn, explodedly);
             }
         }
     }
