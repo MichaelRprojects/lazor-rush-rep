@@ -41,12 +41,16 @@ public class Mover : MonoBehaviour
     public float omovspdb;
     public float trnspd =5f;
     int mvnum = 1;
+
+    Transform mytransform;
     // Start is called before the first frame update
     void Start()
     {
         //pointa.position = this.transform.localPosition;
         //nn.transfor
         Pl = GameObject.Find("Player");
+        //mytansforms were this.transform.whatever
+        mytransform = transform;
         crryplr = false;
         omovspdb = omovspd;
         bzsna = true;
@@ -173,6 +177,7 @@ public class Mover : MonoBehaviour
         }
         if (aswtch != null)
         {
+            //Vector3.Distance
             if (Vector3.Distance(Pl.transform.position, aswtch.transform.position) <= 4f)
             {
                 if (PMovement.isdead == false)
@@ -258,19 +263,19 @@ public class Mover : MonoBehaviour
         if (mvnum == 1)
         {
             //local pos
-            if (Vector3.Distance(pointb.transform.position, this.transform.position) > 1f)
+            if (Vector3.Distance(pointb.transform.position, mytransform.position) > 1f)
             {
                 //lerp
-                this.transform.position = Vector3.MoveTowards(this.transform.position, pointb.position, Time.deltaTime * omovspd);
+                mytransform.position = Vector3.MoveTowards(mytransform.position, pointb.position, Time.deltaTime * omovspd);
                 //Debug.Log(Vector3.Angle((this.transform.position - pointb.transform.position), this.transform.forward));
                 if (isupdwn == false)
                 {
-                    if (Vector3.Angle((this.transform.position - pointb.transform.position), this.transform.forward) != 0)
+                    if (Vector3.Angle((mytransform.position - pointb.transform.position), mytransform.forward) != 0)
                     {
                         //this.transform.RotateAround(this.transform.position, this.transform.up, -50f * Time.deltaTime);
-                        Quaternion frot = Quaternion.LookRotation((this.transform.position - pointb.transform.position));
+                        Quaternion frot = Quaternion.LookRotation((mytransform.position - pointb.transform.position));
                         //was tdt* 5f
-                        this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
+                        mytransform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
                     }
                 }
                 //Rigidbody rbomv = this.GetComponent<Rigidbody>();
@@ -301,7 +306,7 @@ public class Mover : MonoBehaviour
                     //Pl.GetComponent<CharacterController>().Move((pointb.position - this.transform.position) * (omovspd/20) * Time.deltaTime);
                 }
             }
-            if (Vector3.Distance(pointb.transform.position, this.transform.position) < 2f)
+            if (Vector3.Distance(pointb.transform.position, mytransform.position) < 2f)
             {
                 if (istp == false)
                 {
@@ -326,17 +331,17 @@ public class Mover : MonoBehaviour
         }
         if (mvnum == 2)
         {
-            if (Vector3.Distance(pointc.transform.position, this.transform.position) > 1f)
+            if (Vector3.Distance(pointc.transform.position, mytransform.position) > 1f)
             {
                 //lerp
-                this.transform.position = Vector3.MoveTowards(this.transform.position, pointc.position, Time.deltaTime * omovspd);
+                mytransform.position = Vector3.MoveTowards(mytransform.position, pointc.position, Time.deltaTime * omovspd);
                 //Debug.Log(Vector3.Angle((this.transform.position - pointc.transform.position), this.transform.forward));
-                if (Vector3.Angle((this.transform.position - pointc.transform.position), this.transform.forward) != 0)
+                if (Vector3.Angle((mytransform.position - pointc.transform.position), mytransform.forward) != 0)
                 {
                     //this.transform.RotateAround(this.transform.position, this.transform.up, -50f * Time.deltaTime);
-                    Quaternion frot = Quaternion.LookRotation((this.transform.position - pointc.transform.position));
+                    Quaternion frot = Quaternion.LookRotation((mytransform.position - pointc.transform.position));
                     //was tdt* 5f
-                    this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
+                    mytransform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
                 }
                 //Rigidbody rbomvb = this.GetComponent<Rigidbody>();
                 //my nd dtd was fm.f 32 64f
@@ -360,24 +365,28 @@ public class Mover : MonoBehaviour
                     //Pl.GetComponent<CharacterController>().Move((pointa.position - this.transform.position) * (omovspd/20) * Time.deltaTime);
                 }
             }
-            if (Vector3.Distance(pointc.transform.position, this.transform.position) < 2f)
+            if (Vector3.Distance(pointc.transform.position, mytransform.position) < 2f)
             {
                 mvnum = 3;
             }
         }
         if (mvnum == 3)
         {
-            if (Vector3.Distance(pointd.transform.position, this.transform.position) > 1f)
+            //float platdistancemn3 = Vector3.Distance(pointd.transform.position, mytransform.position);
+            if (Vector3.Distance(pointd.transform.position, mytransform.position) > 1f)
+            //if (platdistancemn3 > 1f)
             {
                 //lerp
-                this.transform.position = Vector3.MoveTowards(this.transform.position, pointd.position, Time.deltaTime * omovspd);
+                mytransform.position = Vector3.MoveTowards(mytransform.position, pointd.position, Time.deltaTime * omovspd);
                 //Debug.Log(Vector3.Angle((this.transform.position - pointa.transform.position), this.transform.forward));
-                if (Vector3.Angle((this.transform.position - pointd.transform.position), this.transform.forward) != 0)
+                if (Vector3.Angle((mytransform.position - pointd.transform.position), mytransform.forward) != 0)
+                //float anglemn3 = Vector3.Angle((mytransform.position - pointd.transform.position), mytransform.forward);
+                //if (anglemn3 != 0)
                 {
                     //this.transform.RotateAround(this.transform.position, this.transform.up, -50f * Time.deltaTime);
-                    Quaternion frot = Quaternion.LookRotation((this.transform.position - pointd.transform.position));
-                    //was tdt *5f
-                    this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
+                    Quaternion frot = Quaternion.LookRotation((mytransform.position - pointd.transform.position));
+                    //was tdt *5f was
+                    mytransform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
                 }
                 //Rigidbody rbomvb = this.GetComponent<Rigidbody>();
                 //my nd dtd was fm.f 32 64f
@@ -401,7 +410,8 @@ public class Mover : MonoBehaviour
                     //Pl.GetComponent<CharacterController>().Move((pointa.position - this.transform.position) * (omovspd/20) * Time.deltaTime);
                 }
             }
-            if (Vector3.Distance(pointd.transform.position, this.transform.position) < 2f)
+            if (Vector3.Distance(pointd.transform.position, mytransform.position) < 2f)
+            //if (platdistancemn3 < 2f)
             {
                 mvnum = 4;
             }
@@ -410,7 +420,7 @@ public class Mover : MonoBehaviour
         {
             if (pointe == null)
             {
-                if (Vector3.Distance(pointa.transform.position, this.transform.position) > 1f)
+                if (Vector3.Distance(pointa.transform.position, mytransform.position) > 1f)
                 {
                     //if (istp == true && isbcfr == false)
                     //{
@@ -418,16 +428,16 @@ public class Mover : MonoBehaviour
                     //}
 
                     //lerp
-                    this.transform.position = Vector3.MoveTowards(this.transform.position, pointa.position, Time.deltaTime * omovspd);
+                    mytransform.position = Vector3.MoveTowards(mytransform.position, pointa.position, Time.deltaTime * omovspd);
                     //Debug.Log(Vector3.Angle((this.transform.position - pointa.transform.position), this.transform.forward));
                     if (isupdwn == false)
                     {
-                        if (Vector3.Angle((this.transform.position - pointa.transform.position), this.transform.forward) != 0)
+                        if (Vector3.Angle((mytransform.position - pointa.transform.position), mytransform.forward) != 0)
                         {
                             //this.transform.RotateAround(this.transform.position, this.transform.up, -50f * Time.deltaTime);
-                            Quaternion frot = Quaternion.LookRotation((this.transform.position - pointa.transform.position));
+                            Quaternion frot = Quaternion.LookRotation((mytransform.position - pointa.transform.position));
                             //was tdt*5f
-                            this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
+                            mytransform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
                         }
                     }
                     //Rigidbody rbomvb = this.GetComponent<Rigidbody>();
@@ -462,7 +472,7 @@ public class Mover : MonoBehaviour
             }
             if (pointe != null)
             {
-                if (Vector3.Distance(pointe.transform.position, this.transform.position) > 1f)
+                if (Vector3.Distance(pointe.transform.position, mytransform.position) > 1f)
                 {
                     //if (istp == true && isbcfr == false)
                     //{
@@ -470,16 +480,16 @@ public class Mover : MonoBehaviour
                     //}
 
                     //lerp
-                    this.transform.position = Vector3.MoveTowards(this.transform.position, pointe.position, Time.deltaTime * omovspd);
+                    mytransform.position = Vector3.MoveTowards(mytransform.position, pointe.position, Time.deltaTime * omovspd);
                     //Debug.Log(Vector3.Angle((this.transform.position - pointa.transform.position), this.transform.forward));
                     if (isupdwn == false)
                     {
-                        if (Vector3.Angle((this.transform.position - pointe.transform.position), this.transform.forward) != 0)
+                        if (Vector3.Angle((mytransform.position - pointe.transform.position), mytransform.forward) != 0)
                         {
                             //this.transform.RotateAround(this.transform.position, this.transform.up, -50f * Time.deltaTime);
-                            Quaternion frot = Quaternion.LookRotation((this.transform.position - pointe.transform.position));
+                            Quaternion frot = Quaternion.LookRotation((mytransform.position - pointe.transform.position));
                             //was tdt* 5f
-                            this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
+                            mytransform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
                         }
                     }
                     if (crryplr == true)
@@ -498,14 +508,14 @@ public class Mover : MonoBehaviour
             }
             if (pointe == null)
             {
-                if (Vector3.Distance(pointa.transform.position, this.transform.position) < 2f)
+                if (Vector3.Distance(pointa.transform.position, mytransform.position) < 2f)
                 {
                         mvnum = 1;
                 }
             }
             if (pointe != null)
             {
-                if (Vector3.Distance(pointe.transform.position, this.transform.position) < 2f)
+                if (Vector3.Distance(pointe.transform.position, mytransform.position) < 2f)
                 {
                         mvnum = 5;
                 }
@@ -513,17 +523,17 @@ public class Mover : MonoBehaviour
         }
         if (mvnum == 5)
         {
-            if (Vector3.Distance(pointa.transform.position, this.transform.position) > 1f)
+            if (Vector3.Distance(pointa.transform.position, mytransform.position) > 1f)
             {
                 //lerp
-                this.transform.position = Vector3.MoveTowards(this.transform.position, pointa.position, Time.deltaTime * omovspd);
+                mytransform.position = Vector3.MoveTowards(mytransform.position, pointa.position, Time.deltaTime * omovspd);
                 //Debug.Log(Vector3.Angle((this.transform.position - pointa.transform.position), this.transform.forward));
-                if (Vector3.Angle((this.transform.position - pointa.transform.position), this.transform.forward) != 0)
+                if (Vector3.Angle((mytransform.position - pointa.transform.position), mytransform.forward) != 0)
                 {
                     //this.transform.RotateAround(this.transform.position, this.transform.up, -50f * Time.deltaTime);
-                    Quaternion frot = Quaternion.LookRotation((this.transform.position - pointa.transform.position));
+                    Quaternion frot = Quaternion.LookRotation((mytransform.position - pointa.transform.position));
                     //was tdt*5f
-                    this.transform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
+                    mytransform.rotation = Quaternion.Slerp(transform.rotation, frot, Time.deltaTime * trnspd);
                 }
                 //Rigidbody rbomvb = this.GetComponent<Rigidbody>();
                 //my nd dtd was fm.f 32 64f
@@ -547,7 +557,7 @@ public class Mover : MonoBehaviour
                     //Pl.GetComponent<CharacterController>().Move((pointa.position - this.transform.position) * (omovspd/20) * Time.deltaTime);
                 }
             }
-            if (Vector3.Distance(pointa.transform.position, this.transform.position) < 2f)
+            if (Vector3.Distance(pointa.transform.position, mytransform.position) < 2f)
             {
                 if (isendl == false)
                 {
@@ -587,7 +597,7 @@ public class Mover : MonoBehaviour
         }
         if (sflshevr != null)
         {
-            Light flshrev = Instantiate(sflshevr, this.transform.position, this.transform.rotation);
+            Light flshrev = Instantiate(sflshevr, mytransform.position, mytransform.rotation);
             flshrev.range = 3;
             Destroy(flshrev, .5f);
             Light flshrevb = Instantiate(sflshevr, pointa.transform.position, pointa.transform.rotation);
@@ -600,14 +610,14 @@ public class Mover : MonoBehaviour
         }
         if (isendl == false)
         {
-            this.transform.position = pointa.transform.position;
+            mytransform.position = pointa.transform.position;
         }
         if (isendl == true)
         {
             if (pointr != null)
             {
                 mvnum = 1;
-                this.transform.position = pointr.transform.position;
+                mytransform.position = pointr.transform.position;
             }
         }
     }
