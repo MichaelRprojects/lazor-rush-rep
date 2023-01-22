@@ -18,6 +18,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] GameObject lv3grp;
     [SerializeField] GameObject lv4grp;
     [SerializeField] GameObject lv5grp;
+    [SerializeField] GameObject lvcgrp;
     [SerializeField] Text highScoreTextView;
     [SerializeField] Text tracknumTextView;
     int testc = 1;
@@ -79,6 +80,10 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.SetFloat("lv5c", 0);
             PlayerPrefs.SetFloat("lv5tm", 0);
             PlayerPrefs.SetFloat("lv5klnm", 0);
+
+            PlayerPrefs.SetFloat("lvc1c", 0);
+            PlayerPrefs.SetFloat("lvc1tm", 0);
+            PlayerPrefs.SetFloat("lvc1klnm", 0);
         }
         if (Input.GetKeyDown(KeyCode.C) && Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.R))
         {
@@ -86,6 +91,7 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.SetInt("lv3ul", 0);
             PlayerPrefs.SetInt("lv4ul", 0);
             PlayerPrefs.SetInt("lv5ul", 0);
+            PlayerPrefs.SetInt("lvchul", 0);
         }
         if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.R))
         {
@@ -93,6 +99,7 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.SetInt("lv3ul", 1);
             PlayerPrefs.SetInt("lv4ul", 1);
             PlayerPrefs.SetInt("lv5ul", 1);
+            PlayerPrefs.SetInt("lvchul", 1);
         }
 
         if (PlayerPrefs.GetFloat("lv1c") == 0 || PlayerPrefs.GetFloat("lv1c") > 90)
@@ -173,6 +180,14 @@ public class MainMenuController : MonoBehaviour
         if (PlayerPrefs.GetInt("lv5ul") != 1)
         {
             lv5grp.SetActive(false);
+        }
+        if (PlayerPrefs.GetInt("lvchul") == 1)
+        {
+            lvcgrp.SetActive(true);
+        }
+        if (PlayerPrefs.GetInt("lvchul") != 1)
+        {
+            lvcgrp.SetActive(false);
         }
         //Debug.Log(PlayerPrefs.GetFloat("lv1c"));
     }
