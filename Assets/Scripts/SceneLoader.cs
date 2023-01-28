@@ -67,6 +67,27 @@ public class SceneLoader : MonoBehaviour
             PlayerPrefs.SetFloat("lvc1tm", 0);
             PlayerPrefs.SetFloat("lvc1klnm", 0);
         }
+        if (sceneName == "Level01FB")
+        {
+            PlayerPrefs.SetFloat("songnum", 3);
+            PlayerPrefs.SetFloat("lvc2c", 0);
+            PlayerPrefs.SetFloat("lvc2tm", 0);
+            PlayerPrefs.SetFloat("lvc2klnm", 0);
+        }
+        if (sceneName == "Level01FC")
+        {
+            PlayerPrefs.SetFloat("songnum", 3);
+            PlayerPrefs.SetFloat("lvc3c", 0);
+            PlayerPrefs.SetFloat("lvc3tm", 0);
+            PlayerPrefs.SetFloat("lvc3klnm", 0);
+        }
+        if (sceneName == "Level01T")
+        {
+            PlayerPrefs.SetFloat("songnum", 6);
+            PlayerPrefs.SetFloat("lvtutc", 0);
+            PlayerPrefs.SetFloat("lvtuttm", 0);
+            PlayerPrefs.SetFloat("lvtutklnm", 0);
+        }
         SceneManager.LoadScene(sceneName);
         
     }
@@ -112,6 +133,18 @@ public class SceneLoader : MonoBehaviour
         if (sceneName == "Level01FA")
         {
             PlayerPrefs.SetFloat("songnum", 3);
+        }
+        if (sceneName == "Level01FB")
+        {
+            PlayerPrefs.SetFloat("songnum", 3);
+        }
+        if (sceneName == "Level01FC")
+        {
+            PlayerPrefs.SetFloat("songnum", 3);
+        }
+        if (sceneName == "Level01T")
+        {
+            PlayerPrefs.SetFloat("songnum", 6);
         }
         SceneManager.LoadScene(sceneName);
 

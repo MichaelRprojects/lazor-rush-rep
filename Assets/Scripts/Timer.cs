@@ -43,6 +43,14 @@ public class Timer : MonoBehaviour
             //killds.text = Level01Controller.currentScore.ToString();
             //killds.text = PlayerPrefs.GetFloat("tstlvklnm").ToString();
             killds.text = klltl.ToString();
+            if (Level01Controller.pstbislvc2 == true)
+            {
+                if(klltl < 60)
+                {
+                    killds.color = Color.red;
+                    killds.text = klltl.ToString() + " You cheated.";
+                }
+            }
             Level01Controller.unlclev();
             Level01Controller.youwin = true;
             YWscrn.SetActive(true);

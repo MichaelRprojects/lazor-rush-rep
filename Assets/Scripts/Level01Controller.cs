@@ -57,6 +57,10 @@ public class Level01Controller : MonoBehaviour
     public bool islv4;
     public bool islv5;
     public bool islvc1;
+    public bool islvc2;
+    public static bool pstbislvc2;
+    public bool islvc3;
+    public bool islvtut;
     //public bool islv4;
     //public bool islv5;
     public static float chckpntcntr;
@@ -86,6 +90,7 @@ public class Level01Controller : MonoBehaviour
         MsentBarb.value = PlayerPrefs.GetFloat("msenstsv", 5f);
 
         //Pl = GameObject.Find("Player").transform;
+        pstbislvc2 = false;
 
         if (iststlv)
         {
@@ -121,6 +126,22 @@ public class Level01Controller : MonoBehaviour
         {
             chckpntcntr = PlayerPrefs.GetFloat("lvc1c");
             timrcnum = 6;
+        }
+        if (islvc2)
+        {
+            chckpntcntr = PlayerPrefs.GetFloat("lvc2c");
+            pstbislvc2 = islvc2;
+            timrcnum = 7;
+        }
+        if (islvc3)
+        {
+            chckpntcntr = PlayerPrefs.GetFloat("lvc3c");
+            timrcnum = 8;
+        }
+        if (islvtut)
+        {
+            chckpntcntr = PlayerPrefs.GetFloat("lvtutc");
+            timrcnum = 9;
         }
         if (chckpntcntr == 1)
         {
@@ -335,6 +356,18 @@ public class Level01Controller : MonoBehaviour
         {
             PlayerPrefs.SetFloat("lvc1c", chckpntcntr);
         }
+        if (islvc2)
+        {
+            PlayerPrefs.SetFloat("lvc2c", chckpntcntr);
+        }
+        if (islvc3)
+        {
+            PlayerPrefs.SetFloat("lvc3c", chckpntcntr);
+        }
+        if (islvtut)
+        {
+            PlayerPrefs.SetFloat("lvtutc", chckpntcntr);
+        }
         if (offchcknt == true)
         {
             chcksvdnt.SetActive(false);
@@ -444,6 +477,18 @@ public class Level01Controller : MonoBehaviour
         {
             SceneManager.LoadScene("Level01FA");
         }
+        if (islvc2)
+        {
+            SceneManager.LoadScene("Level01FB");
+        }
+        if (islvc3)
+        {
+            SceneManager.LoadScene("Level01FC");
+        }
+        if (islvtut)
+        {
+            SceneManager.LoadScene("Level01T");
+        }
     }
     public void Resume()
     {
@@ -493,6 +538,21 @@ public class Level01Controller : MonoBehaviour
         {
             curtm = PlayerPrefs.GetFloat("lvc1tm");
             PlayerPrefs.SetFloat("lvc1tm", curtm += tmrcd);
+        }
+        if (timrcnum == 7)
+        {
+            curtm = PlayerPrefs.GetFloat("lvc2tm");
+            PlayerPrefs.SetFloat("lvc2tm", curtm += tmrcd);
+        }
+        if (timrcnum == 8)
+        {
+            curtm = PlayerPrefs.GetFloat("lvc3tm");
+            PlayerPrefs.SetFloat("lvc3tm", curtm += tmrcd);
+        }
+        if (timrcnum == 9)
+        {
+            curtm = PlayerPrefs.GetFloat("lvtuttm");
+            PlayerPrefs.SetFloat("lvtuttm", curtm += tmrcd);
         }
     }
     public static void distim()
@@ -581,6 +641,42 @@ public class Level01Controller : MonoBehaviour
                 Timer.secon = "0" + (PlayerPrefs.GetFloat("lvc1tm") % 60).ToString("f2");
             }
         }
+        if (timrcnum == 7)
+        {
+            Timer.minut = ((int)PlayerPrefs.GetFloat("lvc2tm") / 60).ToString();
+            if (PlayerPrefs.GetFloat("lvc2tm") % 60 >= 10)
+            {
+                Timer.secon = (PlayerPrefs.GetFloat("lvc2tm") % 60).ToString("f2");
+            }
+            if (PlayerPrefs.GetFloat("lvc2tm") % 60 < 10)
+            {
+                Timer.secon = "0" + (PlayerPrefs.GetFloat("lvc2tm") % 60).ToString("f2");
+            }
+        }
+        if (timrcnum == 8)
+        {
+            Timer.minut = ((int)PlayerPrefs.GetFloat("lvc3tm") / 60).ToString();
+            if (PlayerPrefs.GetFloat("lvc3tm") % 60 >= 10)
+            {
+                Timer.secon = (PlayerPrefs.GetFloat("lvc3tm") % 60).ToString("f2");
+            }
+            if (PlayerPrefs.GetFloat("lvc3tm") % 60 < 10)
+            {
+                Timer.secon = "0" + (PlayerPrefs.GetFloat("lvc3tm") % 60).ToString("f2");
+            }
+        }
+        if (timrcnum == 9)
+        {
+            Timer.minut = ((int)PlayerPrefs.GetFloat("lvtuttm") / 60).ToString();
+            if (PlayerPrefs.GetFloat("lvtuttm") % 60 >= 10)
+            {
+                Timer.secon = (PlayerPrefs.GetFloat("lvtuttm") % 60).ToString("f2");
+            }
+            if (PlayerPrefs.GetFloat("lvtuttm") % 60 < 10)
+            {
+                Timer.secon = "0" + (PlayerPrefs.GetFloat("lvtuttm") % 60).ToString("f2");
+            }
+        }
     }
     public static void klnmrc(float klnmrcd, float curklnm)
     {
@@ -626,6 +722,24 @@ public class Level01Controller : MonoBehaviour
             PlayerPrefs.SetFloat("lvc1klnm", curklnm += klnmrcd);
             Timer.klltl = PlayerPrefs.GetFloat("lvc1klnm");
         }
+        if (timrcnum == 7)
+        {
+            curklnm = PlayerPrefs.GetFloat("lvc2klnm");
+            PlayerPrefs.SetFloat("lvc2klnm", curklnm += klnmrcd);
+            Timer.klltl = PlayerPrefs.GetFloat("lvc2klnm");
+        }
+        if (timrcnum == 8)
+        {
+            curklnm = PlayerPrefs.GetFloat("lvc3klnm");
+            PlayerPrefs.SetFloat("lvc3klnm", curklnm += klnmrcd);
+            Timer.klltl = PlayerPrefs.GetFloat("lvc3klnm");
+        }
+        if (timrcnum == 9)
+        {
+            curklnm = PlayerPrefs.GetFloat("lvtutklnm");
+            PlayerPrefs.SetFloat("lvtutklnm", curklnm += klnmrcd);
+            Timer.klltl = PlayerPrefs.GetFloat("lvtutklnm");
+        }
     }
     public void golev()
     {
@@ -650,6 +764,11 @@ public class Level01Controller : MonoBehaviour
             SceneManager.LoadScene("Level01E");
         }
         if (islv5)
+        {
+            PlayerPrefs.SetFloat("songnum", 3);
+            SceneManager.LoadScene("Level01A");
+        }
+        if (islvtut)
         {
             PlayerPrefs.SetFloat("songnum", 3);
             SceneManager.LoadScene("Level01A");
