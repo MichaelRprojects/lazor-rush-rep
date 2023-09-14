@@ -21,6 +21,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] AudioClip RlS = null;
     [SerializeField] AudioClip MtS = null;
     [SerializeField] AudioClip GnclS = null;
+    [SerializeField] AudioClip StrtrldS = null;
     [SerializeField] Light rlight;
     float lintsi = 3.5f;
 
@@ -100,7 +101,8 @@ public class Shooting : MonoBehaviour
                         //Melee.gunua == false
                         if (Melee.shtrest == false)
                         {
-                            AudioHelper.PlayClip2D(GnclS);
+                            //AudioHelper.PlayClip2D(GnclS);
+                            AudioHelperExclude.PlayClip2D(GnclS);
                         }
                     }
                     if (clip > 0)
@@ -166,6 +168,11 @@ public class Shooting : MonoBehaviour
                         {
                             if (Melee.gunua == false)
                             {
+                                if (reloading == false)
+                                {
+                                    //AudioHelper.PlayClip2D(StrtrldS);
+                                    AudioHelperExclude.PlayClip2D(StrtrldS);
+                                }
                                 shoota = false;
                                 reloada = false;
                                 clcka = false;
@@ -185,7 +192,8 @@ public class Shooting : MonoBehaviour
         Debug.DrawRay(rayorigin.position, rayDirection * shootDistance, Color.blue, 1f);
 
         mflr.SetActive(true);
-        AudioHelper.PlayClip2D(gnf);
+        //AudioHelper.PlayClip2D(gnf);
+        AudioHelperExclude.PlayClip2D(gnf);
         DelayHelper.DelayAction(this, endf, .1f);
         rlight.intensity = lintsi / mclip * (clip + 1.5f);
 
@@ -252,7 +260,8 @@ public class Shooting : MonoBehaviour
     {
         clip = mclip;
         rlight.intensity = lintsi / mclip * (clip + 1.5f);
-        AudioHelper.PlayClip2D(RlS);
+        //AudioHelper.PlayClip2D(RlS);
+        AudioHelperExclude.PlayClip2D(RlS);
         shoota = true;
         reloada = true;
         clcka = true;

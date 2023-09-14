@@ -158,7 +158,8 @@ public class Melee : MonoBehaviour
                 {
                     if (Level01Controller.pgpaused == false)
                     {
-                        shldlsmlt = 5;
+                        //was5
+                        shldlsmlt = 3;
                         pshld.SetActive(true);
                         pshldv.SetActive(true);
                         pispry = true;
@@ -171,7 +172,8 @@ public class Melee : MonoBehaviour
                 {
                     if (Level01Controller.pgpaused == false)
                     {
-                        shldlsmlt = .25f;
+                        //was.25
+                        shldlsmlt = .3f;
                         pshld.SetActive(false);
                         pshldv.SetActive(false);
                         pispry = false;
@@ -237,7 +239,8 @@ public class Melee : MonoBehaviour
                     {
                         if (reamnt < mxreamnt)
                         {
-                            reamnt = Mathf.Clamp(reamnt + (60 * Time.deltaTime), 0.0f, mxreamnt);
+                            //was60
+                            reamnt = Mathf.Clamp(reamnt + (120 * Time.deltaTime), 0.0f, mxreamnt);
                         }
                     }
                 }
@@ -368,7 +371,8 @@ public class Melee : MonoBehaviour
                         {
                             if (bldres == false)
                             {
-                                AudioHelper.PlayClip2D(scb);
+                                //AudioHelper.PlayClip2D(scb);
+                                AudioHelperExclude.PlayClip2D(scb);
 
                                 targets = null;
                                 findtarget();

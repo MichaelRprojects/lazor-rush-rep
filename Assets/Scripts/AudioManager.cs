@@ -17,6 +17,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip Songd;
     [SerializeField] AudioClip Songe;
     [SerializeField] AudioClip Songf;
+    [SerializeField] AudioClip Songg;
+    [SerializeField] AudioClip Songh;
+    [SerializeField] AudioClip Songi;
 
     private void Awake()
     {
@@ -173,6 +176,42 @@ public class AudioManager : MonoBehaviour
                     nlld = true;
                 }
                 //PlaySong(Songc);
+            }
+        }
+        if (PlayerPrefs.GetFloat("songnum") == 7)
+        {
+            if (Songg != null)
+            {
+                if (nlld == false)
+                {
+                    audioSource.Stop();
+                    PlaySong(Songg);
+                    nlld = true;
+                }
+            }
+        }
+        if (PlayerPrefs.GetFloat("songnum") == 8)
+        {
+            if (Songh != null)
+            {
+                if (nlld == false)
+                {
+                    audioSource.Stop();
+                    PlaySong(Songh);
+                    nlld = true;
+                }
+            }
+        }
+        if (PlayerPrefs.GetFloat("songnum") == 9)
+        {
+            if (Songi != null)
+            {
+                if (nlld == false)
+                {
+                    audioSource.Stop();
+                    PlaySong(Songi);
+                    nlld = true;
+                }
             }
         }
 

@@ -2200,6 +2200,7 @@ MonoBehaviour:
   eexp: {fileID: 4032041146603647292, guid: dab1d23d52d09054db55b68bd4648018, type: 3}
   mnlght: {fileID: 2131737241}
   MnwS: {fileID: 8300000, guid: 51350e4d47adf4849b60dfbb028837c4, type: 3}
+  explodedly: 1
 --- !u!136 &60354821
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6975,6 +6976,7 @@ MonoBehaviour:
   eexp: {fileID: 4032041146603647292, guid: dab1d23d52d09054db55b68bd4648018, type: 3}
   mnlght: {fileID: 2111487495}
   MnwS: {fileID: 8300000, guid: 51350e4d47adf4849b60dfbb028837c4, type: 3}
+  explodedly: 1
 --- !u!136 &172373102
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10628,6 +10630,7 @@ MonoBehaviour:
   RlS: {fileID: 8300000, guid: 33671b015b170c44b89ba69a7d1114fd, type: 3}
   MtS: {fileID: 8300000, guid: 44060e71dae27ec42a08391c0676304c, type: 3}
   GnclS: {fileID: 8300000, guid: b1823859e3549ee4e9f80bf4ba0709ad, type: 3}
+  StrtrldS: {fileID: 8300000, guid: cd936423045c66b408da1631dffa0264, type: 3}
   rlight: {fileID: 175321777}
   Grounded:
     serializedVersion: 2
@@ -16916,6 +16919,7 @@ MonoBehaviour:
   eexp: {fileID: 4032041146603647292, guid: dab1d23d52d09054db55b68bd4648018, type: 3}
   mnlght: {fileID: 1314662500}
   MnwS: {fileID: 8300000, guid: 51350e4d47adf4849b60dfbb028837c4, type: 3}
+  explodedly: 1
 --- !u!136 &475870010
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -41477,6 +41481,7 @@ MonoBehaviour:
   eexp: {fileID: 4032041146603647292, guid: dab1d23d52d09054db55b68bd4648018, type: 3}
   mnlght: {fileID: 1453609145}
   MnwS: {fileID: 8300000, guid: 51350e4d47adf4849b60dfbb028837c4, type: 3}
+  explodedly: 1
 --- !u!136 &1141691785
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -57552,6 +57557,7 @@ MonoBehaviour:
   eexp: {fileID: 4032041146603647292, guid: dab1d23d52d09054db55b68bd4648018, type: 3}
   mnlght: {fileID: 670606773}
   MnwS: {fileID: 8300000, guid: 51350e4d47adf4849b60dfbb028837c4, type: 3}
+  explodedly: 1
 --- !u!54 &1628739348
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -73977,6 +73983,14 @@ MonoBehaviour:
   PsmnS: {fileID: 8300000, guid: 5f07e0adbb479a64ea1f73219fd9363c, type: 3}
   iststlv: 1
   islv1: 0
+  islv2: 0
+  islv3: 0
+  islv4: 0
+  islv5: 0
+  islvc1: 0
+  islvc2: 0
+  islvc3: 0
+  islvtut: 0
 --- !u!1 &1959135131
 GameObject:
   m_ObjectHideFlags: 0

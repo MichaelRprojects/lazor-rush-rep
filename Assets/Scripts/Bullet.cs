@@ -46,7 +46,7 @@ public class Bullet : MonoBehaviour
         sdstrct();
         }
         //|| other.tag != "shield"  no .tag past mplat
-        if (other.tag != "pshield" && other.tag != "shield" && other.tag != "mplt" && other.tag != "Ladder" && other.tag != "HangS" && other.tag != "Slope")
+        if (other.tag != "pshield" && other.tag != "shield" && other.tag != "mplt" && other.tag != "Ladder" && other.tag != "HangS" && other.tag != "Slope" && other.tag != "boostblock")
         {
             mtht = true;
             sdstrct();

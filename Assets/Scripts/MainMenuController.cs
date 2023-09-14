@@ -15,11 +15,17 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] GameObject lv4cntbtn;
     [SerializeField] GameObject lv5cntbtn;
     [SerializeField] GameObject lvtutcntbtn;
+    [SerializeField] GameObject lvm1cntbtn;
+    [SerializeField] GameObject lvm2cntbtn;
+    [SerializeField] GameObject lvm3cntbtn;
     [SerializeField] GameObject lv2grp;
     [SerializeField] GameObject lv3grp;
     [SerializeField] GameObject lv4grp;
     [SerializeField] GameObject lv5grp;
     [SerializeField] GameObject lvcgrp;
+    //[SerializeField] GameObject lvm1grp;
+    [SerializeField] GameObject lvm2grp;
+    [SerializeField] GameObject lvm3grp;
     [SerializeField] Text highScoreTextView;
     [SerializeField] Text tracknumTextView;
     int testc = 1;
@@ -101,6 +107,18 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.SetFloat("lvtutc", 0);
             PlayerPrefs.SetFloat("lvtuttm", 0);
             PlayerPrefs.SetFloat("lvtutklnm", 0);
+
+            PlayerPrefs.SetFloat("lvm1c", 0);
+            PlayerPrefs.SetFloat("lvm1tm", 0);
+            PlayerPrefs.SetFloat("lvm1klnm", 0);
+
+            PlayerPrefs.SetFloat("lvm2c", 0);
+            PlayerPrefs.SetFloat("lvm2tm", 0);
+            PlayerPrefs.SetFloat("lvm2klnm", 0);
+
+            PlayerPrefs.SetFloat("lvm3c", 0);
+            PlayerPrefs.SetFloat("lvm3tm", 0);
+            PlayerPrefs.SetFloat("lvm3klnm", 0);
         }
         if (Input.GetKeyDown(KeyCode.C) && Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.R))
         {
@@ -109,6 +127,8 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.SetInt("lv4ul", 0);
             PlayerPrefs.SetInt("lv5ul", 0);
             PlayerPrefs.SetInt("lvchul", 0);
+            PlayerPrefs.SetInt("lvm2ul", 0);
+            PlayerPrefs.SetInt("lvm3ul", 0);
         }
         if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.R))
         {
@@ -117,6 +137,8 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.SetInt("lv4ul", 1);
             PlayerPrefs.SetInt("lv5ul", 1);
             PlayerPrefs.SetInt("lvchul", 1);
+            PlayerPrefs.SetInt("lvm2ul", 1);
+            PlayerPrefs.SetInt("lvm3ul", 1);
         }
 
         if (PlayerPrefs.GetFloat("lv1c") == 0 || PlayerPrefs.GetFloat("lv1c") > 90)
@@ -174,6 +196,33 @@ public class MainMenuController : MonoBehaviour
             lvtutcntbtn.SetActive(true);
         }
 
+        if (PlayerPrefs.GetFloat("lvm1c") == 0 || PlayerPrefs.GetFloat("lvm1c") > 90)
+        {
+            lvm1cntbtn.SetActive(false);
+        }
+        if (PlayerPrefs.GetFloat("lvm1c") > 0 && PlayerPrefs.GetFloat("lvm1c") < 90)
+        {
+            lvm1cntbtn.SetActive(true);
+        }
+
+        if (PlayerPrefs.GetFloat("lvm2c") == 0 || PlayerPrefs.GetFloat("lvm2c") > 90)
+        {
+            lvm2cntbtn.SetActive(false);
+        }
+        if (PlayerPrefs.GetFloat("lvm2c") > 0 && PlayerPrefs.GetFloat("lvm2c") < 90)
+        {
+            lvm2cntbtn.SetActive(true);
+        }
+
+        if (PlayerPrefs.GetFloat("lvm3c") == 0 || PlayerPrefs.GetFloat("lvm3c") > 90)
+        {
+            lvm3cntbtn.SetActive(false);
+        }
+        if (PlayerPrefs.GetFloat("lvm3c") > 0 && PlayerPrefs.GetFloat("lvm3c") < 90)
+        {
+            lvm3cntbtn.SetActive(true);
+        }
+
         if (PlayerPrefs.GetInt("lv2ul") == 1)
         {
             lv2grp.SetActive(true);
@@ -215,19 +264,35 @@ public class MainMenuController : MonoBehaviour
         {
             lvcgrp.SetActive(false);
         }
+        if (PlayerPrefs.GetInt("lvm2ul") == 1)
+        {
+            lvm2grp.SetActive(true);
+        }
+        if (PlayerPrefs.GetInt("lvm2ul") != 1)
+        {
+            lvm2grp.SetActive(false);
+        }
+        if (PlayerPrefs.GetInt("lvm3ul") == 1)
+        {
+            lvm3grp.SetActive(true);
+        }
+        if (PlayerPrefs.GetInt("lvm3ul") != 1)
+        {
+            lvm3grp.SetActive(false);
+        }
         //Debug.Log(PlayerPrefs.GetFloat("lv1c"));
     }
     public void sngnumup()
     {
         //if (AudioManager.sngnum < 4)
-        if (PlayerPrefs.GetFloat("songnum") < 7)
+        if (PlayerPrefs.GetFloat("songnum") < 10)
         {
             AudioManager.nlld = false;
             //AudioManager.sngnum += 1;
             PlayerPrefs.SetFloat("songnum", PlayerPrefs.GetFloat("songnum") + 1);
         }
         //if (AudioManager.sngnum == 4)
-        if (PlayerPrefs.GetFloat("songnum") == 7)
+        if (PlayerPrefs.GetFloat("songnum") == 10)
         {
             AudioManager.nlld = false;
             //AudioManager.sngnum = 1;
@@ -250,7 +315,7 @@ public class MainMenuController : MonoBehaviour
         {
             AudioManager.nlld = false;
             //AudioManager.sngnum = 3;
-            PlayerPrefs.SetFloat("songnum", 6);
+            PlayerPrefs.SetFloat("songnum", 9);
         }
         //AudioManager.pvol = .2f;
         //testc = 500;

@@ -357,8 +357,10 @@ MonoBehaviour:
     m_Bits: 128
   ehand: {fileID: 7436856975282849447}
   egun: {fileID: 7436856974181564622}
+  anchorpoint: {fileID: 0}
   ehealth: 100
   pdetr: 60
+  isanchored: 0
   grounded:
     serializedVersion: 2
     m_Bits: 64
@@ -375,6 +377,7 @@ MonoBehaviour:
   AlrS: {fileID: 8300000, guid: 51350e4d47adf4849b60dfbb028837c4, type: 3}
   sngS: {fileID: 8300000, guid: 77dcdebed84e5d24d97eb0454155e01f, type: 3}
   opartc: {fileID: 3865875769399438641, guid: fded65c08cee7294d8da2dc8cca394e4, type: 3}
+  oparthit: {fileID: 4767613283403980907, guid: ec36babd355eadb45b3c18f9657a8361, type: 3}
 --- !u!54 &7436856974436425263
 Rigidbody:
   m_ObjectHideFlags: 0

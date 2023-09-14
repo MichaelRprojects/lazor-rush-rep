@@ -8,6 +8,7 @@ public class EnemyS : MonoBehaviour
     [SerializeField] LayerMask Playerl;
     [SerializeField] GameObject ehand;
     [SerializeField] GameObject egun;
+    [SerializeField] Transform anchorpoint;
     Transform Pl;
     bool grndc;
     // priv nxt 2
@@ -27,6 +28,7 @@ public class EnemyS : MonoBehaviour
     GameObject blckrfnd;
     bool isstp = false;
     int stpang = 90;
+    public bool isanchored;
 
     Vector3 kpscal;
 
@@ -55,9 +57,11 @@ public class EnemyS : MonoBehaviour
     [SerializeField] AudioClip ExploS = null;
     [SerializeField] AudioClip AlrS = null;
     [SerializeField] AudioClip sngS = null;
+    public bool alwaysLlS = false;
     bool plthd = true;
     bool plalr2 = true;
     [SerializeField] GameObject opartc;
+    [SerializeField] GameObject oparthit;
     // Start is called before the first frame update
     void Start()
     {
@@ -129,6 +133,18 @@ public class EnemyS : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (isanchored == true)
+        {
+            if (anchorpoint != null)
+            {
+                if(this.transform.position != anchorpoint.transform.position)
+                {
+                    this.transform.position = anchorpoint.transform.position;
+                }
+            }
+        }
+
         if (hitm == false)
         {
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, 0);
@@ -508,8 +524,13 @@ public class EnemyS : MonoBehaviour
     public void TDamage(int damagetoTake)
     {
         ehealth -= damagetoTake;
-        movea = false; 
+        movea = false;
         //.5
+        if (oparthit != null)
+        {
+            GameObject opartht = Instantiate(oparthit, this.transform.position, this.transform.rotation);
+            Destroy(opartht, .5f);
+        }
         DelayHelper.DelayAction(this, moveat, .5f);
         //Debug.Log(ehealth + "lll");
     }
@@ -550,10 +571,17 @@ public class EnemyS : MonoBehaviour
             rb.AddForce(ehand.transform.forward * 0f, ForceMode.Impulse);
         }
 
-        AudioHelper.PlayClip2D(LlS);
+        if (alwaysLlS == false)
+        {
+            AudioHelper.PlayClip2D(LlS);
+        }
+        if (alwaysLlS == true)
+        {
+            AudioHelperExclude.PlayClip2D(LlS);
+        }
 
-            //attcamnt = 0;
-            //attacka = false;
+        //attcamnt = 0;
+        //attacka = false;
     }
     void eMove()
     {

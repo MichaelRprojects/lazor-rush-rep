@@ -77,6 +77,7 @@ public class PMovement : MonoBehaviour
     int djunlock = 0;
 
     public Transform groundCheck;
+    //.4
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
@@ -91,6 +92,9 @@ public class PMovement : MonoBehaviour
 
     Vector3 velocity;
     bool isGrounded;
+    bool grounddetacted;
+    bool cansetisgroundedfalse = true;
+    public float slidespeedmultiplyer = 2.5f;
     void Awake()
     {
         isdead = false;
@@ -141,6 +145,11 @@ public class PMovement : MonoBehaviour
         {
             eblddmgd = true;
         }
+        if (other.tag == "boostblock")
+        {
+            velocity.y = 0;
+            //gravity = -9.8f;
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -152,6 +161,7 @@ public class PMovement : MonoBehaviour
             sliden();
             //airslow = 2f;
             //Debug.Log("slp");
+            jumpnum = 1;
         }
         if (other.tag != "Slope")
         {
@@ -205,7 +215,10 @@ public class PMovement : MonoBehaviour
     {
         if (isdead == true)
         {
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            grounddetacted = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            //grounddetacted = Physics.CheckCapsule(groundCheck.position, groundCheck.position, groundDistance + 3f, groundMask);
+            isGrounded = grounddetacted;
             if (isGrounded && velocity.y < 0)
             {
                 velocity.y = -2f;
@@ -224,7 +237,23 @@ public class PMovement : MonoBehaviour
         }
         if (isdead == false)
         {
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            grounddetacted = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            //grounddetacted = Physics.CheckCapsule(groundCheck.position - Vector3.up * (groundDistance - 30f), groundCheck.position + Vector3.up * (groundDistance - 30f), 30f, groundMask);
+
+            if (grounddetacted == true)
+            {
+                isGrounded = true;
+                cansetisgroundedfalse = true;
+            }
+            if (grounddetacted == false)
+            {
+                if (cansetisgroundedfalse == true)
+                {
+                    //.25
+                    DelayHelper.DelayAction(this, setisgroundedfalse, .25f);
+                }
+            }
 
             if (isGrounded && velocity.y < 0)
             {
@@ -273,8 +302,8 @@ public class PMovement : MonoBehaviour
                     {
                         Vector3 move2 = transform.right * x + transform.forward * z;
                         move2 += slpvec2;
-                        //(airslow *4f)     (speed *1.5f)
-                        controller.Move(move2 * ((speed * 2.5f) / airslow) * Time.deltaTime);
+                        //(airslow *4f)     (speed *1.5f) (speed * 2.5f)
+                        controller.Move(move2 * ((speed * slidespeedmultiplyer) / airslow) * Time.deltaTime);
                         //-1.8
                         //gravity = -1.2f;
                     }
@@ -334,7 +363,8 @@ public class PMovement : MonoBehaviour
                 {
                     if (Level01Controller.pgpaused == false)
                     {
-                        velocity.y = 2f;
+                        //was2f
+                        velocity.y = 4f;
                         LUStamloss = true;
                     }
                 }
@@ -639,7 +669,8 @@ public class PMovement : MonoBehaviour
                         if (Stamina > 0)
                         {
                             //Stamina -= 4;
-                            Stamina = Mathf.Clamp(Stamina - (2600 * Time.deltaTime), 0.0f, MaxStamina);
+                            //was2600*time.dt
+                            Stamina = Mathf.Clamp(Stamina - (2000 * Time.deltaTime), 0.0f, MaxStamina);
                         }
                     }
                 }
@@ -946,6 +977,22 @@ public class PMovement : MonoBehaviour
     {
         isslope = false;
         //isslope2 = false;
+    }
+    void setisgroundedfalse()
+    {
+        isGrounded = false;
+        cansetisgroundedfalse = false;
+    }
+    public void shockdamge()
+    {
+        if (Health > 0)
+        {
+            Level01Controller.Hvis = true;
+            AudioHelper.PlayClip2D(sngeS);
+            AudioHelper.PlayClip2D(HrtSpm);
+            //500
+            Health = 0;
+        }
     }
 
     }

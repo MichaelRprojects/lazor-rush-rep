@@ -7,6 +7,7 @@ public class pthrwbl : MonoBehaviour
     GameObject[] enemiestr;
     GameObject[] enemiestrb;
     Vector3 etargs;
+    Transform firsttarget;
     [SerializeField] GameObject bldprt;
     [SerializeField] AudioClip bldths = null;
     bool targfound = false;
@@ -15,6 +16,7 @@ public class pthrwbl : MonoBehaviour
     void Start()
     {
         enemiestr = GameObject.FindGameObjectsWithTag("Enemyt");
+
         DelayHelper.DelayAction(this, plybtsn, .4f);
         DelayHelper.DelayAction(this, tswrslfdst, 1.4f);
         //levelrt = this.transform.localRotation.x;
@@ -35,8 +37,35 @@ public class pthrwbl : MonoBehaviour
                 //was<=10
                 if (Vector3.Distance(this.transform.position, enemiestr[i].transform.position) <= 20)
                 {
+
+                    List<KeyValuePair<float, Transform>> distanceAndEnemies = new List<KeyValuePair<float, Transform>>();
+                    foreach (GameObject enemy in enemiestr)
+                    {
+                        if (enemy != null)
+                        {
+                            if (Vector3.Distance(this.transform.position, enemy.transform.position) <= 20)
+                            {
+                                float distance = Vector3.Distance(transform.position, enemy.transform.position);
+                                distanceAndEnemies.Add(new KeyValuePair<float, Transform>(distance, enemy.transform));
+                            }
+                        }
+                    }
+                    distanceAndEnemies.Sort((a, b) => a.Key.CompareTo(b.Key));
+                    if (distanceAndEnemies.Count > 0)
+                    {
+                        firsttarget = distanceAndEnemies[0].Value;
+                    }
+                    else
+                    {
+                        firsttarget = null;
+                    }
+
                     //Debug.Log(i);
-                    etargs = enemiestr[i].transform.position;
+                    //etargs = enemiestr[i].transform.position;
+                    if (firsttarget != null)
+                    {
+                        etargs = firsttarget.transform.position;
+                            }
                     transform.LookAt(etargs);
                     //transform.RotateAround(this.transform.position, this.transform.right, 500 * Time.deltaTime);
                     //Debug.Log(etargs);

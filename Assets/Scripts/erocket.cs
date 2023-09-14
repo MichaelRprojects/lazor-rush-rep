@@ -51,7 +51,7 @@ public class erocket : MonoBehaviour
             sdstrct();
         }
         //|| other.tag != "shield"
-        if (other.tag != "pshield" && other.tag != "shield" && other.tag != "mplt")
+        if (other.tag != "pshield" && other.tag != "shield" && other.tag != "mplt" && other.tag != "boostblock")
         {
             mtht = true;
             sdstrct();
