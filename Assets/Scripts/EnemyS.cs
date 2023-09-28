@@ -505,6 +505,10 @@ public class EnemyS : MonoBehaviour
             if (ehealth <= 0)
             {
                 Level01Controller.currentScore += 1;
+
+                //Debug.Log(Level01Controller.currentScore);
+                //Debug.Log(this.name);
+
                 offsetyb = Random.Range(-1.0f, 1.0f);
                 offsetxb = Random.Range(-1.0f, 1.0f);
                 Vector3 upoff5 = new Vector3(offsetyb, offsetyb, offsetyb);

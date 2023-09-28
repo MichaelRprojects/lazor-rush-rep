@@ -20,6 +20,8 @@ public class Level01Controller : MonoBehaviour
     [SerializeField] GameObject Egprompt;
     [SerializeField] GameObject Elgprompt;
     [SerializeField] GameObject Eusprompt;
+    [SerializeField] GameObject bladeaviableico;
+    [SerializeField] GameObject nadeaviableico;
     [SerializeField] GameObject chcksvdnt;
     [SerializeField] GameObject NEStam;
     [SerializeField] GameObject Hud;
@@ -94,6 +96,16 @@ public class Level01Controller : MonoBehaviour
 
         //Pl = GameObject.Find("Player").transform;
         pstbislvc2 = false;
+
+        if (bladeaviableico != null)
+        {
+            bladeaviableico.SetActive(true);
+        }
+        if (nadeaviableico != null)
+        {
+            nadeaviableico.SetActive(true);
+        }
+        //Eusprompt.SetActive(false);
 
         if (iststlv)
         {
@@ -282,7 +294,35 @@ public class Level01Controller : MonoBehaviour
         {
             NEStam.SetActive(false);
         }
-        //Debug.Log(eusepr);
+        if (Melee.bldua == false)
+        {
+            if (bladeaviableico != null)
+            {
+                bladeaviableico.SetActive(true);
+            }
+        }
+        if (Melee.gunua == false)
+        {
+            if (nadeaviableico != null)
+            {
+                nadeaviableico.SetActive(true);
+            }
+        }
+        if (Melee.bldua == true)
+        {
+            if (bladeaviableico != null)
+            {
+                bladeaviableico.SetActive(false);
+            }
+        }
+        if (Melee.gunua == true)
+        {
+            if (nadeaviableico != null)
+            {
+                nadeaviableico.SetActive(false);
+            }
+        }
+            //Debug.Log(eusepr);
         if (eusepr == true)
         {
             Eusprompt.SetActive(true);
@@ -876,8 +916,8 @@ public class Level01Controller : MonoBehaviour
         }
         if (islv5)
         {
-            PlayerPrefs.SetFloat("songnum", 3);
-            SceneManager.LoadScene("Level01A");
+            PlayerPrefs.SetFloat("songnum", 7);
+            SceneManager.LoadScene("Level01M1");
         }
         if (islvtut)
         {
