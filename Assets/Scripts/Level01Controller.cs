@@ -66,6 +66,8 @@ public class Level01Controller : MonoBehaviour
     public bool islvm1;
     public bool islvm2;
     public bool islvm3;
+    public bool lcisdemo = false;
+    public static bool psblcisdemo = false;
     //public bool islv4;
     //public bool islv5;
     public static float chckpntcntr;
@@ -80,6 +82,14 @@ public class Level01Controller : MonoBehaviour
         respawn = false;
         pgpaused = false;
         youwin = false;
+
+        //was 0
+        //QualitySettings.vSyncCount = 2;  // VSync must be disabled
+        Application.targetFrameRate = 90;
+
+        //float vSyncFactor = RefreshRate.value / 60.0f;
+        //QualitySettings.vSyncCount = Mathf.Clamp(Mathf.RoundToInteger(vSyncFactor), 1, 4);
+
         //Pl = GameObject.Find("Player").transform;
         //Pl.transform.position = chckpointaspwn.transform.position;
     }
@@ -96,6 +106,11 @@ public class Level01Controller : MonoBehaviour
 
         //Pl = GameObject.Find("Player").transform;
         pstbislvc2 = false;
+
+        if(lcisdemo == true)
+        {
+            psblcisdemo = true;
+        }
 
         if (bladeaviableico != null)
         {
@@ -944,7 +959,10 @@ public class Level01Controller : MonoBehaviour
     {
         if (timrcnum == 1)
         {
-            PlayerPrefs.SetInt("lv2ul", 1);
+            if (psblcisdemo == false)
+            {
+                PlayerPrefs.SetInt("lv2ul", 1);
+            }
         }
         if (timrcnum == 2)
         {

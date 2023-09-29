@@ -29,6 +29,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] Text highScoreTextView;
     [SerializeField] Text tracknumTextView;
     int testc = 1;
+    public bool isdemo = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -132,13 +133,16 @@ public class MainMenuController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.R))
         {
-            PlayerPrefs.SetInt("lv2ul", 1);
-            PlayerPrefs.SetInt("lv3ul", 1);
-            PlayerPrefs.SetInt("lv4ul", 1);
-            PlayerPrefs.SetInt("lv5ul", 1);
-            PlayerPrefs.SetInt("lvchul", 1);
-            PlayerPrefs.SetInt("lvm2ul", 1);
-            PlayerPrefs.SetInt("lvm3ul", 1);
+            if (isdemo == false)
+            {
+                PlayerPrefs.SetInt("lv2ul", 1);
+                PlayerPrefs.SetInt("lv3ul", 1);
+                PlayerPrefs.SetInt("lv4ul", 1);
+                PlayerPrefs.SetInt("lv5ul", 1);
+                PlayerPrefs.SetInt("lvchul", 1);
+                PlayerPrefs.SetInt("lvm2ul", 1);
+                PlayerPrefs.SetInt("lvm3ul", 1);
+            }
         }
 
         if (PlayerPrefs.GetFloat("lv1c") == 0 || PlayerPrefs.GetFloat("lv1c") > 90)
